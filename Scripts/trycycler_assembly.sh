@@ -20,13 +20,7 @@ source variables.sh
 echo "script started running at: "; date
 echo "Running on host:"; hostname
 
-module load Flye
-module load canu
-module load miniasm
-module load NECAT
-module load NextDenovo
-module load raven
-module load NextPolish
+module load Trycycler
 module list
 
 # Change as appropriate for your system and genome:
@@ -50,6 +44,10 @@ mkdir assemblies
 
 echo "*** canu started running at: "; date
 
+module purge
+module load canu
+module list
+
 for i in 01 07 13 19; do
     canu -p canu -d canu_temp -fast genomeSize="$genome_size" useGrid=false minThreads="$threads" maxThreads="$threads" -pacbio read_subsets/sample_"$i".fastq
     canu_trim.py canu_temp/canu.contigs.fasta > assemblies/assembly_"$i".fasta
@@ -57,6 +55,11 @@ for i in 01 07 13 19; do
 done
 
 echo "*** flye started running at: "; date
+
+module purge
+module load Flye
+module list
+
 for i in 02 08 14 20; do
     flye --pacbio-hifi read_subsets/sample_"$i".fastq --threads "$threads" --out-dir flye_temp
     cp flye_temp/assembly.fasta assemblies/assembly_"$i".fasta
@@ -65,6 +68,11 @@ for i in 02 08 14 20; do
 done
 
 echo "*** miniasm started running at: "; date
+
+module purge
+module load miniasm
+module list
+
 for i in 03 09 15 21; do
     miniasm_and_minipolish.sh read_subsets/sample_"$i".fastq "$threads" > assemblies/assembly_"$i".gfa
     any2fasta assemblies/assembly_"$i".gfa > assemblies/assembly_"$i".fasta
@@ -72,11 +80,21 @@ done
 
 
 echo "*** raven started running at: "; date
+
+module purge
+module load raven
+module list
+
 for i in 06 12 18 24; do
     raven --threads "$threads" --disable-checkpoints --graphical-fragment-assembly assemblies/assembly_"$i".gfa read_subsets/sample_"$i".fastq > assemblies/assembly_"$i".fasta
 done
 
 echo "*** necat started running at: "; date
+
+module purge
+module load NECAT
+module list
+
 for i in 04 10 16 22; do
     necat.pl config config.txt
     realpath read_subsets/sample_"$i".fastq > read_list.txt
@@ -90,6 +108,12 @@ for i in 04 10 16 22; do
 done
 
 echo "*** nextdenovo started running at: "; date
+
+module purge
+module load NextDenovo
+module load NextPolish
+module list
+
 for i in 05 11 17 23; do
     echo read_subsets/sample_"$i".fastq > input.fofn
     cp "$nextdenovo_dir"/doc/run.cfg nextdenovo_run.cfg
@@ -115,5 +139,3 @@ done
 
 
 echo "script finished at: "; date
-
-# pwd to find out the full path for flye-output-S4Sm
