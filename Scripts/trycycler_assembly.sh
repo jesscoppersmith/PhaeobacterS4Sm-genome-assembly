@@ -20,7 +20,7 @@ source variables.sh
 echo "script started running at: "; date
 echo "Running on host:"; hostname
 
-module load flye
+module load Flye
 module load canu
 module load miniasm
 module load NECAT
