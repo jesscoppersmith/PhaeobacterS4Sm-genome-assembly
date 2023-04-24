@@ -2,9 +2,8 @@
 #SBATCH --job-name="trycycler"
 #SBATCH --time 100:00:00  # walltime limit (HH:MM:SS) # Upped from 4 -- 2023-04-18
 #SBATCH --array=0
-#SBATCH --nodes=10   # number of nodes
-#SBATCH --ntasks-per-node=20   # processor core(s) per node
-#SBATCH --mem=12G   # maximum memory used per node # upped from 6G -- 2021-06-01
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem=24G   # maximum memory used per node # upped from 6G -- 2021-06-01
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user=jcoppersmith@uri.edu
 
@@ -26,13 +25,14 @@ module load canu
 module load miniasm
 module load NECAT
 module load NextDenovo
-module load Raven
+module load raven
+module load NextPolish
 module list
 
 # Change as appropriate for your system and genome:
 threads=16
-nextdenovo_dir="/path/to/NextDenovo"
-nextpolish_dir="/path/to/NextPolish"
+nextdenovo_dir=$EBROOTNEXTDENOVO
+nextpolish_dir=$EBROOTNEXTPOLISH
 genome_size="4500000"
 
 #########
