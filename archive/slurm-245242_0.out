@@ -1,0 +1,2592 @@
+script started running at: 
+Thu Apr 27 08:30:26 EDT 2023
+Running on host:
+n063.cluster.com
+*** canu started running at: 
+Thu Apr 27 08:30:26 EDT 2023
+Currently Loaded Modulefiles:
+  1) GCCcore/10.3.0
+  2) Java/11.0.2(11)
+  3) zlib/.1.2.11-GCCcore-10.3.0
+  4) expat/2.2.9-GCCcore-10.3.0
+  5) ncurses/.6.2-GCCcore-10.3.0
+  6) libreadline/.8.1-GCCcore-10.3.0
+  7) OpenSSL/1.1
+  8) DB/18.1.40-GCCcore-10.3.0
+  9) Perl/5.32.1-GCCcore-10.3.0
+ 10) bzip2/.1.0.8-GCCcore-10.3.0
+ 11) libpng/.1.6.37-GCCcore-10.3.0
+ 12) freetype/.2.10.4-GCCcore-10.3.0
+ 13) pixman/0.40.0-GCCcore-10.3.0
+ 14) libffi/3.3-GCCcore-10.3.0
+ 15) XZ/.5.2.5-GCCcore-10.3.0
+ 16) libxml2/.2.9.10-GCCcore-10.3.0
+ 17) gettext/.0.21-GCCcore-10.3.0
+ 18) PCRE2/10.36-GCCcore-10.3.0
+ 19) util-linux/2.36-GCCcore-10.3.0
+ 20) GLib/2.68.2-GCCcore-10.3.0
+ 21) fontconfig/2.13.93-GCCcore-10.3.0
+ 22) xorg-macros/1.19.3-GCCcore-10.3.0
+ 23) libpciaccess/0.16-GCCcore-10.3.0
+ 24) X11/20210518-GCCcore-10.3.0
+ 25) cairo/.1.16.0-GCCcore-10.3.0
+ 26) NASM/2.15.05-GCCcore-10.3.0
+ 27) libjpeg-turbo/.2.0.6-GCCcore-10.3.0
+ 28) libgd/2.3.1-GCCcore-10.3.0
+ 29) ICU/69.1-GCCcore-10.3.0
+ 30) HarfBuzz/2.8.1-GCCcore-10.3.0
+ 31) FriBidi/1.0.10-GCCcore-10.3.0
+ 32) Pango/1.48.5-GCCcore-10.3.0
+ 33) libcerf/1.17-GCCcore-10.3.0
+ 34) double-conversion/3.1.5-GCCcore-10.3.0
+ 35) DBus/1.13.18-GCCcore-10.3.0
+ 36) libevent/2.1.12-GCCcore-10.3.0
+ 37) gzip/1.10-GCCcore-10.3.0
+ 38) lz4/1.9.3-GCCcore-10.3.0
+ 39) zstd/1.4.9-GCCcore-10.3.0
+ 40) libdrm/2.4.106-GCCcore-10.3.0
+ 41) libglvnd/1.3.3-GCCcore-10.3.0
+ 42) libunwind/1.4.0-GCCcore-10.3.0
+ 43) LLVM/11.1.0-GCCcore-10.3.0
+ 44) Mesa/21.1.1-GCCcore-10.3.0
+ 45) libGLU/9.0.1-GCCcore-10.3.0
+ 46) NSPR/4.30-GCCcore-10.3.0
+ 47) NSS/3.65-GCCcore-10.3.0
+ 48) snappy/1.1.8-GCCcore-10.3.0
+ 49) JasPer/2.0.28-GCCcore-10.3.0
+ 50) Qt5/5.15.2-GCCcore-10.3.0
+ 51) Lua/5.4.3-GCCcore-10.3.0
+ 52) gnuplot/5.4.2-GCCcore-10.3.0
+ 53) canu/2.2-GCCcore-10.3.0
+-- canu 2.2
+--
+-- CITATIONS
+--
+-- For 'standard' assemblies of PacBio or Nanopore reads:
+--   Koren S, Walenz BP, Berlin K, Miller JR, Phillippy AM.
+--   Canu: scalable and accurate long-read assembly via adaptive k-mer weighting and repeat separation.
+--   Genome Res. 2017 May;27(5):722-736.
+--   http://doi.org/10.1101/gr.215087.116
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+-- Corrected read consensus sequences are generated using an algorithm derived from FALCON-sense:
+--   Chin CS, et al.
+--   Phased diploid genome assembly with single-molecule real-time sequencing.
+--   Nat Methods. 2016 Dec;13(12):1050-1054.
+--   http://doi.org/10.1038/nmeth.4035
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '11.0.2' (from '/opt/software/Java/11.0.2/bin/java') without -d64 support.
+-- Detected gnuplot version '5.4 patchlevel 2   ' (from 'gnuplot') and image format 'png'.
+--
+-- Detected 4 CPUs and 24576 gigabytes of memory on the local machine.
+--
+-- WARNING: maxThreads=16 has no effect when only 4 CPUs present.
+--
+-- Detected Slurm with 'sinfo' binary in /usr/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /usr/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /usr/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Job limits:
+--     16 CPUs              (maxThreads option).
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     12.000 GB    4 CPUs x   1 job     12.000 GB   4 CPUs  (k-mer counting)
+-- Local: hap        8.000 GB    4 CPUs x   1 job      8.000 GB   4 CPUs  (read-to-haplotype assignment)
+-- Local: cormhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: obtmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: utgmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x   4 jobs    16.000 GB   4 CPUs  (overlap store bucketizer)
+-- Local: ovs        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap store sorting)
+-- Local: red       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap error adjustment)
+-- Local: bat       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Found untrimmed raw PacBio CLR reads in the input files.
+--
+-- Generating assembly 'canu' in '/glfs/brick01/gv0/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/canu_temp':
+--   genomeSize:
+--     4500000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.2400 ( 24.00%)
+--     obtOvlErrorRate 0.0450 (  4.50%)
+--     utgOvlErrorRate 0.0450 (  4.50%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.2500 ( 25.00%)
+--     obtErrorRate    0.0450 (  4.50%)
+--     utgErrorRate    0.0450 (  4.50%)
+--     cnsErrorRate    0.0750 (  7.50%)
+--
+--   Stages to run:
+--     correct raw reads.
+--     trim corrected reads.
+--     assemble corrected and trimmed reads.
+--
+--
+-- BEGIN CORRECTION
+----------------------------------------
+-- Starting command on Thu Apr 27 08:30:31 2023 with 7422.729 GB free disk space
+
+    cd .
+    ./canu.seqStore.sh \
+    > ./canu.seqStore.err 2>&1
+
+-- Finished on Thu Apr 27 08:30:43 2023 (12 seconds) with 7422.615 GB free disk space
+----------------------------------------
+--
+-- In sequence store './canu.seqStore':
+--   Found 46332 reads.
+--   Found 447131935 bases (99.36 times coverage).
+--    Histogram of raw reads:
+--    
+--    G=447131935                        sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        13930      2842     44717540  ||       1313-2024            2|-
+--    00020        12357      6266     89434984  ||       2025-2736            1|-
+--    00030        11343     10052    134148516  ||       2737-3448            1|-
+--    00040        10498     14154    178861034  ||       3449-4160            1|-
+--    00050         9737     18577    223570384  ||       4161-4872            4|-
+--    00060         9019     23350    268282037  ||       4873-5584           11|-
+--    00070         8400     28491    313000485  ||       5585-6296           76|-
+--    00080         7836     34004    357708726  ||       6297-7008         3109|-------------------------
+--    00090         7300     39913    402421294  ||       7009-7720         7837|---------------------------------------------------------------
+--    00100         1313     46331    447131935  ||       7721-8432         7100|----------------------------------------------------------
+--    001.000x               46332    447131935  ||       8433-9144         5726|-----------------------------------------------
+--                                               ||       9145-9856         4617|--------------------------------------
+--                                               ||       9857-10568        4086|---------------------------------
+--                                               ||      10569-11280        3439|----------------------------
+--                                               ||      11281-11992        2901|------------------------
+--                                               ||      11993-12704        2109|-----------------
+--                                               ||      12705-13416        1605|-------------
+--                                               ||      13417-14128        1162|----------
+--                                               ||      14129-14840         860|-------
+--                                               ||      14841-15552         555|-----
+--                                               ||      15553-16264         363|---
+--                                               ||      16265-16976         267|---
+--                                               ||      16977-17688         180|--
+--                                               ||      17689-18400          92|-
+--                                               ||      18401-19112          72|-
+--                                               ||      19113-19824          40|-
+--                                               ||      19825-20536          28|-
+--                                               ||      20537-21248          17|-
+--                                               ||      21249-21960          24|-
+--                                               ||      21961-22672          15|-
+--                                               ||      22673-23384           7|-
+--                                               ||      23385-24096           5|-
+--                                               ||      24097-24808           6|-
+--                                               ||      24809-25520           4|-
+--                                               ||      25521-26232           3|-
+--                                               ||      26233-26944           1|-
+--                                               ||      26945-27656           1|-
+--                                               ||      27657-28368           0|
+--                                               ||      28369-29080           1|-
+--                                               ||      29081-29792           0|
+--                                               ||      29793-30504           2|-
+--                                               ||      30505-31216           0|
+--                                               ||      31217-31928           0|
+--                                               ||      31929-32640           1|-
+--                                               ||      32641-33352           0|
+--                                               ||      33353-34064           0|
+--                                               ||      34065-34776           0|
+--                                               ||      34777-35488           0|
+--                                               ||      35489-36200           0|
+--                                               ||      36201-36912           1|-
+--    
+----------------------------------------
+-- Starting command on Thu Apr 27 08:30:45 2023 with 7422.615 GB free disk space
+
+    cd correction/0-mercounts
+    ./meryl-configure.sh \
+    > ./meryl-configure.err 2>&1
+
+-- Finished on Thu Apr 27 08:30:46 2023 (one second) with 7422.615 GB free disk space
+----------------------------------------
+--  segments   memory batches
+--  -------- -------- -------
+--        01  1.15 GB       2
+--        02  0.58 GB       2
+--        04  0.29 GB       2
+--
+--  For 46332 reads with 447131935 bases, limit to 4 batches.
+--  Will count kmers using 01 jobs, each using 3 GB and 4 threads.
+--
+-- Finished stage 'merylConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 08:30:46 2023 with 7422.615 GB free disk space (1 processes; 1 concurrently)
+
+    cd correction/0-mercounts
+    ./meryl-count.sh 1 > ./meryl-count.000001.out 2>&1
+
+-- Finished on Thu Apr 27 08:31:44 2023 (58 seconds) with 7422.563 GB free disk space
+----------------------------------------
+-- Found 1 Kmer counting (meryl) outputs.
+-- Finished stage 'cor-merylCountCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 08:31:44 2023 with 7422.539 GB free disk space (1 processes; 1 concurrently)
+
+    cd correction/0-mercounts
+    ./meryl-process.sh 1 > ./meryl-process.000001.out 2>&1
+
+-- Finished on Thu Apr 27 08:32:00 2023 (16 seconds) with 7422.565 GB free disk space
+----------------------------------------
+-- Meryl finished successfully.  Kmer frequency histogram:
+--
+--  16-mers                                                                                           Fraction
+--    Occurrences   NumMers                                                                         Unique Total
+--       1-     1         0                                                                        0.0000 0.0000
+--       2-     2    666503 **********************                                                 0.0682 0.0030
+--       3-     4    654561 *********************                                                  0.0999 0.0051
+--       5-     7   1596502 *****************************************************                  0.1819 0.0134
+--       8-    11   2098451 ********************************************************************** 0.3672 0.0425
+--      12-    16    515700 *****************                                                      0.5355 0.0801
+--      17-    22     42212 *                                                                      0.5680 0.0902
+--      23-    29     11692                                                                        0.5708 0.0914
+--      30-    37     12916                                                                        0.5719 0.0921
+--      38-    46     65979 **                                                                     0.5734 0.0932
+--      47-    56    196628 ******                                                                 0.5812 0.1009
+--      57-    67    503073 ****************                                                       0.6037 0.1274
+--      68-    79    707375 ***********************                                                0.6576 0.2034
+--      80-    92    758893 *************************                                              0.7299 0.3228
+--      93-   106    827944 ***************************                                            0.8089 0.4754
+--     107-   121    548626 ******************                                                     0.8913 0.6577
+--     122-   137    256703 ********                                                               0.9447 0.7928
+--     138-   154    185459 ******                                                                 0.9701 0.8660
+--     155-   172     69550 **                                                                     0.9887 0.9264
+--     173-   191     11119                                                                        0.9951 0.9492
+--     192-   211     12247                                                                        0.9962 0.9537
+--     212-   232      5720                                                                        0.9974 0.9592
+--     233-   254      2423                                                                        0.9980 0.9620
+--     255-   277      3331                                                                        0.9982 0.9634
+--     278-   301       700                                                                        0.9986 0.9653
+--     302-   326       210                                                                        0.9986 0.9657
+--     327-   352       217                                                                        0.9986 0.9658
+--     353-   379       717                                                                        0.9987 0.9660
+--     380-   407       366                                                                        0.9987 0.9667
+--     408-   436        26                                                                        0.9988 0.9669
+--     437-   466        37                                                                        0.9988 0.9670
+--     467-   497        60                                                                        0.9988 0.9670
+--     498-   529        36                                                                        0.9988 0.9671
+--     530-   562        29                                                                        0.9988 0.9671
+--     563-   596        36                                                                        0.9988 0.9671
+--     597-   631       497                                                                        0.9988 0.9672
+--     632-   667        87                                                                        0.9988 0.9679
+--     668-   704       734                                                                        0.9989 0.9680
+--     705-   742      1748                                                                        0.9989 0.9693
+--     743-   781       265                                                                        0.9991 0.9720
+--     782-   821       845                                                                        0.9991 0.9725
+--
+--           0 (max occurrences)
+--   440736163 (total mers, non-unique)
+--     9767779 (distinct mers, non-unique)
+--           0 (unique mers)
+-- Finished stage 'meryl-process', reset canuIteration.
+--
+-- Removing meryl database 'correction/0-mercounts/canu.ms16'.
+--
+-- OVERLAPPER (mhap) (correction)
+--
+-- Set corMhapSensitivity=low based on read coverage of 99.36.
+--
+-- PARAMETERS: hashes=256, minMatches=3, threshold=0.8
+--
+-- Given 5.4 GB, can fit 16200 reads per block.
+-- For 4 blocks, set stride to 2 blocks.
+-- Logging partitioning to 'correction/1-overlapper/partitioning.log'.
+-- Configured 3 mhap precompute jobs.
+-- Configured 3 mhap overlap jobs.
+tar: queries: file changed as we read it
+    tar \
+      -cf queries.tar queries
+
+ERROR:
+ERROR:  Failed with exit code 1.  (rc=256)
+ERROR:
+-- Finished stage 'cor-mhapConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cormhap' concurrent execution on Thu Apr 27 08:32:05 2023 with 7422.614 GB free disk space (3 processes; 1 concurrently)
+
+    cd correction/1-overlapper
+    ./precompute.sh 1 > ./precompute.000001.out 2>&1
+    ./precompute.sh 2 > ./precompute.000002.out 2>&1
+    ./precompute.sh 3 > ./precompute.000003.out 2>&1
+
+-- Finished on Thu Apr 27 08:58:59 2023 (1614 seconds) with 7421.832 GB free disk space
+----------------------------------------
+-- All 3 mhap precompute jobs finished successfully.
+-- Finished stage 'cor-mhapPrecomputeCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cormhap' concurrent execution on Thu Apr 27 08:58:59 2023 with 7421.832 GB free disk space (3 processes; 1 concurrently)
+
+    cd correction/1-overlapper
+    ./mhap.sh 1 > ./mhap.000001.out 2>&1
+    ./mhap.sh 2 > ./mhap.000002.out 2>&1
+    ./mhap.sh 3 > ./mhap.000003.out 2>&1
+
+-- Finished on Thu Apr 27 09:10:19 2023 (680 seconds) with 7421.612 GB free disk space
+----------------------------------------
+-- Found 3 mhap overlap output files.
+-- Finished stage 'cor-mhapCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:19 2023 with 7421.612 GB free disk space
+
+    cd correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreConfig \
+     -S ../canu.seqStore \
+     -M 4-8 \
+     -L ./1-overlapper/ovljob.files \
+     -create ./canu.ovlStore.config \
+     > ./canu.ovlStore.config.txt \
+    2> ./canu.ovlStore.config.err
+
+-- Finished on Thu Apr 27 09:10:19 2023 (fast as lightning) with 7421.612 GB free disk space
+----------------------------------------
+--
+-- Creating overlap store correction/canu.ovlStore using:
+--      2 buckets
+--      2 slices
+--        using at most 2 GB memory each
+-- Finished stage 'cor-overlapStoreConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovB' concurrent execution on Thu Apr 27 09:10:21 2023 with 7421.612 GB free disk space (2 processes; 4 concurrently)
+
+    cd correction/canu.ovlStore.BUILDING
+    ./scripts/1-bucketize.sh 1 > ./logs/1-bucketize.000001.out 2>&1
+    ./scripts/1-bucketize.sh 2 > ./logs/1-bucketize.000002.out 2>&1
+
+-- Finished on Thu Apr 27 09:10:26 2023 (5 seconds) with 7421.198 GB free disk space
+----------------------------------------
+-- Overlap store bucketizer finished.
+-- Finished stage 'cor-overlapStoreBucketizerCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovS' concurrent execution on Thu Apr 27 09:10:26 2023 with 7421.198 GB free disk space (2 processes; 4 concurrently)
+
+    cd correction/canu.ovlStore.BUILDING
+    ./scripts/2-sort.sh 1 > ./logs/2-sort.000001.out 2>&1
+    ./scripts/2-sort.sh 2 > ./logs/2-sort.000002.out 2>&1
+
+-- Finished on Thu Apr 27 09:10:35 2023 (9 seconds) with 7421.105 GB free disk space
+----------------------------------------
+-- Overlap store sorter finished.
+-- Finished stage 'cor-overlapStoreSorterCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:36 2023 with 7421.105 GB free disk space
+
+    cd correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreIndexer \
+      -O  ./canu.ovlStore.BUILDING \
+      -S ../canu.seqStore \
+      -C  ./canu.ovlStore.config \
+      -delete \
+    > ./canu.ovlStore.BUILDING.index.err 2>&1
+
+-- Finished on Thu Apr 27 09:10:36 2023 (fast as lightning) with 7421.106 GB free disk space
+----------------------------------------
+-- Overlap store indexer finished.
+-- Checking store.
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:36 2023 with 7421.106 GB free disk space
+
+    cd correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreDump \
+     -S ../canu.seqStore \
+     -O  ./canu.ovlStore \
+     -counts \
+     > ./canu.ovlStore/counts.dat 2> ./canu.ovlStore/counts.err
+
+-- Finished on Thu Apr 27 09:10:36 2023 (in the blink of an eye) with 7421.106 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'correction/canu.ovlStore' successfully constructed.
+-- Found 26965544 overlaps for 46332 reads; 0 reads have no overlaps.
+--
+--
+-- Purged 1.002 GB in 9 overlap output files.
+-- Finished stage 'cor-createOverlapStore', reset canuIteration.
+-- Set corMinCoverage=4 based on read coverage of 99.36.
+-- Computing correction layouts.
+--   Local  filter coverage   80
+--   Global filter coverage   40
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:38 2023 with 7422.108 GB free disk space
+
+    cd correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/generateCorrectionLayouts \
+      -S ../canu.seqStore \
+      -O  ./canu.ovlStore \
+      -C  ./canu.corStore.WORKING \
+      -eC 80 \
+      -xC 40 \
+    > ./canu.corStore.err 2>&1
+
+-- Finished on Thu Apr 27 09:10:44 2023 (6 seconds) with 7422.033 GB free disk space
+----------------------------------------
+-- Finished stage 'cor-buildCorrectionLayoutsConfigure', reset canuIteration.
+-- Computing correction layouts.
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:45 2023 with 7422.031 GB free disk space
+
+    cd correction/2-correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/filterCorrectionLayouts \
+      -S  ../../canu.seqStore \
+      -C     ../canu.corStore \
+      -R      ./canu.readsToCorrect.WORKING \
+      -cc 4 \
+      -cl 1000 \
+      -g  4500000 \
+      -c  40 \
+    > ./canu.readsToCorrect.err 2>&1
+
+-- Finished on Thu Apr 27 09:10:45 2023 (one second) with 7422.03 GB free disk space
+----------------------------------------
+--                             original      original
+--                            raw reads     raw reads
+--   category                w/overlaps  w/o/overlaps
+--   -------------------- ------------- -------------
+--   Number of Reads              45326          1006
+--   Number of Bases          440233571       6898364
+--   Coverage                    97.830         1.533
+--   Median                        9118          6873
+--   Mean                          9712          6857
+--   N50                           9796          6887
+--   Minimum                       4284          1313
+--   Maximum                      36870         11099
+--   
+--                                        --------corrected---------  ----------rescued----------
+--                             evidence                     expected                     expected
+--   category                     reads            raw     corrected            raw     corrected
+--   -------------------- -------------  ------------- -------------  ------------- -------------
+--   Number of Reads              46026          14345         14345            281           281
+--   Number of Bases          444411016      180382256     180000735        2468027       1676823
+--   Coverage                    98.758         40.085        40.000          0.548         0.373
+--   Median                        9051          12034         12013           8262          6436
+--   Mean                          9655          12574         12547           8783          5967
+--   N50                           9745          12304         12278           8656          7293
+--   Minimum                       1313          10413         10412           5541          1081
+--   Maximum                      36870          32473         32460          17022         10293
+--   
+--                        --------uncorrected--------
+--                                           expected
+--   category                       raw     corrected
+--   -------------------- ------------- -------------
+--   Number of Reads              31706         31706
+--   Number of Bases          264281652     242000521
+--   Coverage                    58.729        53.778
+--   Median                        8194          8142
+--   Mean                          8335          7632
+--   N50                           8388          8478
+--   Minimum                       1313             0
+--   Maximum                      36870         36869
+--   
+--   Maximum Memory           899214770
+-- Finished stage 'cor-filterCorrectionLayouts', reset canuIteration.
+--
+-- Correction jobs estimated to need at most 0.837 GB for computation.
+-- Correction jobs will request 6 GB each.
+--
+-- Local: cor        6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (read correction)
+--
+--
+-- Configuring correction jobs:
+--   Reads estimated to need at most 0.837 GB for computation.
+--   Jobs will request 6 GB each.
+----------------------------------------
+-- Starting command on Thu Apr 27 09:10:46 2023 with 7422.028 GB free disk space
+
+    cd correction/2-correction
+    ./correctReadsPartition.sh \
+    > ./correctReadsPartition.err 2>&1
+
+-- Finished on Thu Apr 27 09:10:46 2023 (like a bat out of hell) with 7422.028 GB free disk space
+----------------------------------------
+-- Finished stage 'cor-generateCorrectedReadsConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cor' concurrent execution on Thu Apr 27 09:10:46 2023 with 7422.028 GB free disk space (2 processes; 1 concurrently)
+
+    cd correction/2-correction
+    ./correctReads.sh 1 > ./correctReads.000001.out 2>&1
+    ./correctReads.sh 2 > ./correctReads.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:07:30 2023 (3404 seconds) with 7421.646 GB free disk space
+----------------------------------------
+-- Found 2 read correction output files.
+-- Finished stage 'cor-generateCorrectedReadsCheck', reset canuIteration.
+-- Found 2 read correction output files.
+-- Finished stage 'cor-generateCorrectedReadsCheck', reset canuIteration.
+--
+-- Loading corrected reads into corStore and seqStore.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:07:30 2023 with 7421.646 GB free disk space
+
+    cd correction
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/loadCorrectedReads \
+      -S ../canu.seqStore \
+      -C ./canu.corStore \
+      -L ./2-correction/corjob.files \
+    >  ./canu.loadCorrectedReads.log \
+    2> ./canu.loadCorrectedReads.err
+
+-- Finished on Thu Apr 27 10:07:35 2023 (5 seconds) with 7421.557 GB free disk space
+----------------------------------------
+--
+-- In sequence store './canu.seqStore':
+--   Found 14626 reads.
+--   Found 181505581 bases (40.33 times coverage).
+--    Histogram of corrected reads:
+--    
+--    G=181505581                        sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        15595      1041     18158916  ||       1079-1707           11|-
+--    00020        14261      2264     36306825  ||       1708-2336           10|-
+--    00030        13411      3578     54463431  ||       2337-2965           18|-
+--    00040        12796      4964     72606529  ||       2966-3594           16|-
+--    00050        12246      6416     90761821  ||       3595-4223           23|-
+--    00060        11789      7927    108907593  ||       4224-4852           18|-
+--    00070        11410      9492    127056733  ||       4853-5481           12|-
+--    00080        11035     11110    145206465  ||       5482-6110           18|-
+--    00090        10699     12781    163362564  ||       6111-6739           27|-
+--    00100         1079     14625    181505581  ||       6740-7368           36|-
+--    001.000x               14626    181505581  ||       7369-7997           39|-
+--                                               ||       7998-8626           23|-
+--                                               ||       8627-9255           21|-
+--                                               ||       9256-9884           11|-
+--                                               ||       9885-10513         617|-------------
+--                                               ||      10514-11142        3123|---------------------------------------------------------------
+--                                               ||      11143-11771        2612|-----------------------------------------------------
+--                                               ||      11772-12400        2021|-----------------------------------------
+--                                               ||      12401-13029        1580|--------------------------------
+--                                               ||      13030-13658        1229|-------------------------
+--                                               ||      13659-14287         947|--------------------
+--                                               ||      14288-14916         669|--------------
+--                                               ||      14917-15545         470|----------
+--                                               ||      15546-16174         308|-------
+--                                               ||      16175-16803         258|------
+--                                               ||      16804-17432         153|----
+--                                               ||      17433-18061         106|---
+--                                               ||      18062-18690          68|--
+--                                               ||      18691-19319          47|-
+--                                               ||      19320-19948          34|-
+--                                               ||      19949-20577          20|-
+--                                               ||      20578-21206          16|-
+--                                               ||      21207-21835          23|-
+--                                               ||      21836-22464          13|-
+--                                               ||      22465-23093           6|-
+--                                               ||      23094-23722           3|-
+--                                               ||      23723-24351           6|-
+--                                               ||      24352-24980           4|-
+--                                               ||      24981-25609           3|-
+--                                               ||      25610-26238           2|-
+--                                               ||      26239-26867           1|-
+--                                               ||      26868-27496           0|
+--                                               ||      27497-28125           1|-
+--                                               ||      28126-28754           0|
+--                                               ||      28755-29383           1|-
+--                                               ||      29384-30012           0|
+--                                               ||      30013-30641           1|-
+--                                               ||      30642-31270           0|
+--                                               ||      31271-31899           0|
+--                                               ||      31900-32528           1|-
+--    
+--
+-- Purging correctReads output after loading into stores.
+-- Purged 2 .cns outputs.
+-- Purged 4 .out job log outputs.
+--
+-- No corrected reads generated, overlaps used for correction saved.
+-- Finished stage 'cor-loadCorrectedReads', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:07:36 2023 with 7421.939 GB free disk space
+
+    cd .
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/sqStoreDumpFASTQ \
+      -corrected \
+      -S ./canu.seqStore \
+      -o ./canu.correctedReads.gz \
+      -fasta \
+      -nolibname \
+    > canu.correctedReads.fasta.err 2>&1
+
+-- Finished on Thu Apr 27 10:07:42 2023 (6 seconds) with 7421.883 GB free disk space
+----------------------------------------
+--
+-- Corrected reads saved in 'canu.correctedReads.fasta.gz'.
+-- Finished stage 'cor-dumpCorrectedReads', reset canuIteration.
+--
+-- BEGIN TRIMMING
+----------------------------------------
+-- Starting command on Thu Apr 27 10:07:43 2023 with 7421.883 GB free disk space
+
+    cd trimming/0-mercounts
+    ./meryl-configure.sh \
+    > ./meryl-configure.err 2>&1
+
+-- Finished on Thu Apr 27 10:07:43 2023 (furiously fast) with 7421.883 GB free disk space
+----------------------------------------
+--  segments   memory batches
+--  -------- -------- -------
+--        01  0.47 GB       2
+--
+--  For 14626 reads with 181505581 bases, limit to 1 batch.
+--  Will count kmers using 01 jobs, each using 2 GB and 4 threads.
+--
+-- Finished stage 'merylConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 10:07:44 2023 with 7421.883 GB free disk space (1 processes; 1 concurrently)
+
+    cd trimming/0-mercounts
+    ./meryl-count.sh 1 > ./meryl-count.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:08:16 2023 (32 seconds) with 7421.842 GB free disk space
+----------------------------------------
+-- Found 1 Kmer counting (meryl) outputs.
+-- Finished stage 'obt-merylCountCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 10:08:16 2023 with 7421.842 GB free disk space (1 processes; 1 concurrently)
+
+    cd trimming/0-mercounts
+    ./meryl-process.sh 1 > ./meryl-process.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:08:33 2023 (17 seconds) with 7421.845 GB free disk space
+----------------------------------------
+-- Meryl finished successfully.  Kmer frequency histogram:
+--
+--  16-mers                                                                                           Fraction
+--    Occurrences   NumMers                                                                         Unique Total
+--       1-     1         0                                                                        0.0000 0.0000
+--       2-     2    851821 ****************************************                               0.1158 0.0094
+--       3-     4   1465929 ********************************************************************** 0.2294 0.0233
+--       5-     7    765989 ************************************                                   0.3698 0.0484
+--       8-    11     98003 ****                                                                   0.4273 0.0639
+--      12-    16     41027 *                                                                      0.4330 0.0661
+--      17-    22    253964 ************                                                           0.4416 0.0717
+--      23-    29    672480 ********************************                                       0.4820 0.1061
+--      30-    37   1117346 *****************************************************                  0.5813 0.2166
+--      38-    46   1064062 **************************************************                     0.7358 0.4350
+--      47-    56    642663 ******************************                                         0.8726 0.6724
+--      57-    67    276524 *************                                                          0.9521 0.8397
+--      68-    79     66887 ***                                                                    0.9874 0.9293
+--      80-    92     14770                                                                        0.9947 0.9508
+--      93-   106      9204                                                                        0.9967 0.9580
+--     107-   121      2514                                                                        0.9978 0.9624
+--     122-   137       534                                                                        0.9981 0.9640
+--     138-   154       263                                                                        0.9982 0.9643
+--     155-   172       962                                                                        0.9982 0.9645
+--     173-   191        65                                                                        0.9984 0.9654
+--     192-   211        80                                                                        0.9984 0.9654
+--     212-   232        50                                                                        0.9984 0.9655
+--     233-   254        22                                                                        0.9984 0.9656
+--     255-   277       380                                                                        0.9984 0.9656
+--     278-   301       249                                                                        0.9985 0.9664
+--     302-   326      2720                                                                        0.9985 0.9666
+--     327-   352       583                                                                        0.9989 0.9713
+--     353-   379      1539                                                                        0.9989 0.9725
+--     380-   407      1556                                                                        0.9992 0.9760
+--     408-   436       142                                                                        0.9994 0.9790
+--     437-   466        13                                                                        0.9994 0.9793
+--     467-   497       643                                                                        0.9994 0.9794
+--     498-   529       287                                                                        0.9995 0.9812
+--     530-   562       294                                                                        0.9995 0.9819
+--     563-   596        11                                                                        0.9995 0.9828
+--     597-   631         0                                                                        0.0000 0.0000
+--     632-   667         2                                                                        0.9995 0.9828
+--     668-   704         6                                                                        0.9995 0.9828
+--     705-   742      1271                                                                        0.9995 0.9829
+--     743-   781        24                                                                        0.9997 0.9879
+--     782-   821        16                                                                        0.9997 0.9880
+--
+--           0 (max occurrences)
+--   180496683 (total mers, non-unique)
+--     7356932 (distinct mers, non-unique)
+--           0 (unique mers)
+-- Finished stage 'meryl-process', reset canuIteration.
+--
+-- Removing meryl database 'trimming/0-mercounts/canu.ms16'.
+--
+-- OVERLAPPER (mhap) (trimming)
+--
+-- Set obtMhapSensitivity=normal based on read coverage of 40.33.
+--
+-- PARAMETERS: hashes=128, minMatches=5, threshold=0.955
+--
+-- Given 5.4 GB, can fit 16200 reads per block.
+-- For 4 blocks, set stride to 2 blocks.
+-- Logging partitioning to 'trimming/1-overlapper/partitioning.log'.
+-- Configured 3 mhap precompute jobs.
+-- Configured 3 mhap overlap jobs.
+tar: queries: file changed as we read it
+    tar \
+      -cf queries.tar queries
+
+ERROR:
+ERROR:  Failed with exit code 1.  (rc=256)
+ERROR:
+-- Finished stage 'obt-mhapConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'obtmhap' concurrent execution on Thu Apr 27 10:08:38 2023 with 7421.883 GB free disk space (3 processes; 1 concurrently)
+
+    cd trimming/1-overlapper
+    ./precompute.sh 1 > ./precompute.000001.out 2>&1
+    ./precompute.sh 2 > ./precompute.000002.out 2>&1
+    ./precompute.sh 3 > ./precompute.000003.out 2>&1
+
+-- Finished on Thu Apr 27 10:14:47 2023 (369 seconds) with 7421.649 GB free disk space
+----------------------------------------
+-- All 3 mhap precompute jobs finished successfully.
+-- Finished stage 'obt-mhapPrecomputeCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'obtmhap' concurrent execution on Thu Apr 27 10:14:47 2023 with 7421.649 GB free disk space (3 processes; 1 concurrently)
+
+    cd trimming/1-overlapper
+    ./mhap.sh 1 > ./mhap.000001.out 2>&1
+    ./mhap.sh 2 > ./mhap.000002.out 2>&1
+    ./mhap.sh 3 > ./mhap.000003.out 2>&1
+
+-- Finished on Thu Apr 27 10:17:32 2023 (165 seconds) with 7421.627 GB free disk space
+----------------------------------------
+-- Found 3 mhap overlap output files.
+-- Finished stage 'obt-mhapCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:32 2023 with 7421.627 GB free disk space
+
+    cd trimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreConfig \
+     -S ../canu.seqStore \
+     -M 4 \
+     -L ./1-overlapper/ovljob.files \
+     -create ./canu.ovlStore.config \
+     > ./canu.ovlStore.config.txt \
+    2> ./canu.ovlStore.config.err
+
+-- Finished on Thu Apr 27 10:17:32 2023 (fast as lightning) with 7421.627 GB free disk space
+----------------------------------------
+--
+-- Creating overlap store trimming/canu.ovlStore using:
+--      2 buckets
+--      2 slices
+--        using at most 1 GB memory each
+-- Finished stage 'obt-overlapStoreConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovB' concurrent execution on Thu Apr 27 10:17:34 2023 with 7421.627 GB free disk space (2 processes; 4 concurrently)
+
+    cd trimming/canu.ovlStore.BUILDING
+    ./scripts/1-bucketize.sh 1 > ./logs/1-bucketize.000001.out 2>&1
+    ./scripts/1-bucketize.sh 2 > ./logs/1-bucketize.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:17:35 2023 (one second) with 7421.586 GB free disk space
+----------------------------------------
+-- Overlap store bucketizer finished.
+-- Finished stage 'obt-overlapStoreBucketizerCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovS' concurrent execution on Thu Apr 27 10:17:36 2023 with 7421.586 GB free disk space (2 processes; 4 concurrently)
+
+    cd trimming/canu.ovlStore.BUILDING
+    ./scripts/2-sort.sh 1 > ./logs/2-sort.000001.out 2>&1
+    ./scripts/2-sort.sh 2 > ./logs/2-sort.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:17:37 2023 (one second) with 7421.572 GB free disk space
+----------------------------------------
+-- Overlap store sorter finished.
+-- Finished stage 'obt-overlapStoreSorterCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:37 2023 with 7421.572 GB free disk space
+
+    cd trimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreIndexer \
+      -O  ./canu.ovlStore.BUILDING \
+      -S ../canu.seqStore \
+      -C  ./canu.ovlStore.config \
+      -delete \
+    > ./canu.ovlStore.BUILDING.index.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:38 2023 (one second) with 7421.573 GB free disk space
+----------------------------------------
+-- Overlap store indexer finished.
+-- Checking store.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:38 2023 with 7421.573 GB free disk space
+
+    cd trimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreDump \
+     -S ../canu.seqStore \
+     -O  ./canu.ovlStore \
+     -counts \
+     > ./canu.ovlStore/counts.dat 2> ./canu.ovlStore/counts.err
+
+-- Finished on Thu Apr 27 10:17:38 2023 (furiously fast) with 7421.573 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'trimming/canu.ovlStore' successfully constructed.
+-- Found 2720322 overlaps for 14593 reads; 31739 reads have no overlaps.
+--
+--
+-- Purged 0.255 GB in 9 overlap output files.
+-- Finished stage 'obt-createOverlapStore', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:39 2023 with 7421.828 GB free disk space
+
+    cd trimming/3-overlapbasedtrimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/trimReads \
+      -S  ../../canu.seqStore \
+      -O  ../canu.ovlStore \
+      -Co ./canu.1.trimReads.clear \
+      -e  0.045 \
+      -minlength 1000 \
+      -ol 500 \
+      -oc 2 \
+      -o  ./canu.1.trimReads \
+    >     ./canu.1.trimReads.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:43 2023 (4 seconds) with 7421.826 GB free disk space
+----------------------------------------
+--  PARAMETERS:
+--  ----------
+--     1000    (reads trimmed below this many bases are deleted)
+--   0.0450    (use overlaps at or below this fraction error)
+--      500    (break region if overlap is less than this long, for 'largest covered' algorithm)
+--        2    (break region if overlap coverage is less than this many reads, for 'largest covered' algorithm)
+--  
+--  INPUT READS:
+--  -----------
+--   46332 reads    181505581 bases (reads processed)
+--       0 reads            0 bases (reads not processed, previously deleted)
+--       0 reads            0 bases (reads not processed, in a library where trimming isn't allowed)
+--  
+--  OUTPUT READS:
+--  ------------
+--   14423 reads    174995252 bases (trimmed reads output)
+--       0 reads            0 bases (reads with no change, kept as is)
+--   31739 reads       251120 bases (reads with no overlaps, deleted)
+--     170 reads      1606135 bases (reads with short trimmed length, deleted)
+--  
+--  TRIMMING DETAILS:
+--  ----------------
+--    3899 reads      1637805 bases (bases trimmed from the 5' end of a read)
+--   14423 reads      3015269 bases (bases trimmed from the 3' end of a read)
+-- Finished stage 'obt-trimReads', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:43 2023 with 7421.826 GB free disk space
+
+    cd trimming/3-overlapbasedtrimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/splitReads \
+      -S  ../../canu.seqStore \
+      -O  ../canu.ovlStore \
+      -Ci ./canu.1.trimReads.clear \
+      -Co ./canu.2.splitReads.clear \
+      -e  0.045 \
+      -minlength 1000 \
+      -o  ./canu.2.splitReads \
+    >     ./canu.2.splitReads.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:44 2023 (one second) with 7421.825 GB free disk space
+----------------------------------------
+--  PARAMETERS:
+--  ----------
+--     1000    (reads trimmed below this many bases are deleted)
+--   0.0450    (use overlaps at or below this fraction error)
+--  INPUT READS:
+--  -----------
+--   14423 reads    179648326 bases (reads processed)
+--   31909 reads      1857255 bases (reads not processed, previously deleted)
+--       0 reads            0 bases (reads not processed, in a library where trimming isn't allowed)
+--  
+--  PROCESSED:
+--  --------
+--       0 reads            0 bases (no overlaps)
+--      13 reads       150642 bases (no coverage after adjusting for trimming done already)
+--       0 reads            0 bases (processed for chimera)
+--       0 reads            0 bases (processed for spur)
+--   14410 reads    179497684 bases (processed for subreads)
+--  
+--  READS WITH SIGNALS:
+--  ------------------
+--       0 reads            0 signals (number of 5' spur signal)
+--       0 reads            0 signals (number of 3' spur signal)
+--       0 reads            0 signals (number of chimera signal)
+--       0 reads            0 signals (number of subread signal)
+--  
+--  SIGNALS:
+--  -------
+--       0 reads            0 bases (size of 5' spur signal)
+--       0 reads            0 bases (size of 3' spur signal)
+--       0 reads            0 bases (size of chimera signal)
+--       0 reads            0 bases (size of subread signal)
+--  
+--  TRIMMING:
+--  --------
+--       0 reads            0 bases (trimmed from the 5' end of the read)
+--       0 reads            0 bases (trimmed from the 3' end of the read)
+-- Finished stage 'obt-splitReads', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:45 2023 with 7421.825 GB free disk space
+
+    cd trimming/3-overlapbasedtrimming
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/loadTrimmedReads \
+      -S ../../canu.seqStore \
+      -c ./canu.2.splitReads.clear \
+    > ./canu.loadTrimmedReads.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:48 2023 (3 seconds) with 7421.821 GB free disk space
+----------------------------------------
+--
+-- In sequence store './canu.seqStore':
+--   Found 14423 reads.
+--   Found 174995252 bases (38.88 times coverage).
+--    Histogram of corrected-trimmed reads:
+--    
+--    G=174995252                        sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        15501      1010     17500502  ||       1031-1653           39|-
+--    00020        14184      2197     35008492  ||       1654-2276           22|-
+--    00030        13326      3472     52510148  ||       2277-2899           31|-
+--    00040        12701      4817     69998581  ||       2900-3522           45|-
+--    00050        12162      6226     87498423  ||       3523-4145           55|--
+--    00060        11705      7694    105008844  ||       4146-4768           54|--
+--    00070        11317      9214    122503931  ||       4769-5391           58|--
+--    00080        10941     10787    139998349  ||       5392-6014           51|--
+--    00090        10600     12412    157500163  ||       6015-6637           81|--
+--    00100         1031     14422    174995252  ||       6638-7260           56|--
+--    001.000x               14423    174995252  ||       7261-7883           65|--
+--                                               ||       7884-8506           63|--
+--                                               ||       8507-9129          103|---
+--                                               ||       9130-9752          103|---
+--                                               ||       9753-10375         206|-----
+--                                               ||      10376-10998        2877|---------------------------------------------------------------
+--                                               ||      10999-11621        2496|-------------------------------------------------------
+--                                               ||      11622-12244        2021|---------------------------------------------
+--                                               ||      12245-12867        1563|-----------------------------------
+--                                               ||      12868-13490        1256|----------------------------
+--                                               ||      13491-14113         896|--------------------
+--                                               ||      14114-14736         702|----------------
+--                                               ||      14737-15359         488|-----------
+--                                               ||      15360-15982         324|--------
+--                                               ||      15983-16605         229|------
+--                                               ||      16606-17228         170|----
+--                                               ||      17229-17851         112|---
+--                                               ||      17852-18474          69|--
+--                                               ||      18475-19097          54|--
+--                                               ||      19098-19720          32|-
+--                                               ||      19721-20343          27|-
+--                                               ||      20344-20966          15|-
+--                                               ||      20967-21589          15|-
+--                                               ||      21590-22212          16|-
+--                                               ||      22213-22835           6|-
+--                                               ||      22836-23458           9|-
+--                                               ||      23459-24081           1|-
+--                                               ||      24082-24704           3|-
+--                                               ||      24705-25327           3|-
+--                                               ||      25328-25950           3|-
+--                                               ||      25951-26573           1|-
+--                                               ||      26574-27196           0|
+--                                               ||      27197-27819           0|
+--                                               ||      27820-28442           0|
+--                                               ||      28443-29065           1|-
+--                                               ||      29066-29688           0|
+--                                               ||      29689-30311           1|-
+--                                               ||      30312-30934           0|
+--                                               ||      30935-31557           0|
+--                                               ||      31558-32180           1|-
+--    
+--
+-- No trimmed reads generated, overlaps used for trimming saved.
+-- Finished stage 'obt-dumpReads', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:49 2023 with 7421.823 GB free disk space
+
+    cd .
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/sqStoreDumpFASTQ \
+      -trimmed \
+      -S ./canu.seqStore \
+      -o ./canu.trimmedReads.gz \
+      -fasta \
+      -trimmed -normal -nolibname \
+    > ./canu.trimmedReads.fasta.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:54 2023 (5 seconds) with 7421.769 GB free disk space
+----------------------------------------
+--
+-- Trimmed reads saved in 'canu.trimmedReads.fasta.gz'.
+-- Finished stage 'cor-dumpTrimmedReads', reset canuIteration.
+--
+-- BEGIN ASSEMBLY
+----------------------------------------
+-- Starting command on Thu Apr 27 10:17:55 2023 with 7421.769 GB free disk space
+
+    cd unitigging/0-mercounts
+    ./meryl-configure.sh \
+    > ./meryl-configure.err 2>&1
+
+-- Finished on Thu Apr 27 10:17:55 2023 (in the blink of an eye) with 7421.769 GB free disk space
+----------------------------------------
+--  segments   memory batches
+--  -------- -------- -------
+--        01  0.45 GB       2
+--
+--  For 14423 reads with 174995252 bases, limit to 1 batch.
+--  Will count kmers using 01 jobs, each using 2 GB and 4 threads.
+--
+-- Finished stage 'merylConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 10:17:56 2023 with 7421.769 GB free disk space (1 processes; 1 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-count.sh 1 > ./meryl-count.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:18:26 2023 (30 seconds) with 7421.736 GB free disk space
+----------------------------------------
+-- Found 1 Kmer counting (meryl) outputs.
+-- Finished stage 'utg-merylCountCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Thu Apr 27 10:18:26 2023 with 7421.736 GB free disk space (1 processes; 1 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-process.sh 1 > ./meryl-process.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:18:43 2023 (17 seconds) with 7421.737 GB free disk space
+----------------------------------------
+-- Meryl finished successfully.  Kmer frequency histogram:
+--
+--  16-mers                                                                                           Fraction
+--    Occurrences   NumMers                                                                         Unique Total
+--       1-     1         0                                                                        0.0000 0.0000
+--       2-     2    577888 ************************************                                   0.0938 0.0066
+--       3-     4    863916 ******************************************************                 0.1704 0.0147
+--       5-     7    478139 ******************************                                         0.2732 0.0306
+--       8-    11     72163 ****                                                                   0.3178 0.0409
+--      12-    16     51377 ***                                                                    0.3242 0.0431
+--      17-    22    262765 ****************                                                       0.3371 0.0504
+--      23-    29    696125 *******************************************                            0.3863 0.0867
+--      30-    37   1110002 ********************************************************************** 0.5061 0.2021
+--      38-    46   1049623 ******************************************************************     0.6912 0.4284
+--      47-    56    622808 ***************************************                                0.8521 0.6702
+--      57-    67    272342 *****************                                                      0.9441 0.8378
+--      68-    79     62340 ***                                                                    0.9857 0.9293
+--      80-    92     15161                                                                        0.9937 0.9497
+--      93-   106      8463                                                                        0.9963 0.9576
+--     107-   121      2362                                                                        0.9974 0.9615
+--     122-   137       518                                                                        0.9978 0.9630
+--     138-   154       249                                                                        0.9979 0.9634
+--     155-   172       958                                                                        0.9979 0.9636
+--     173-   191        65                                                                        0.9981 0.9644
+--     192-   211        80                                                                        0.9981 0.9645
+--     212-   232        50                                                                        0.9981 0.9646
+--     233-   254        31                                                                        0.9981 0.9647
+--     255-   277       387                                                                        0.9981 0.9647
+--     278-   301       245                                                                        0.9982 0.9656
+--     302-   326      2712                                                                        0.9982 0.9657
+--     327-   352       581                                                                        0.9986 0.9706
+--     353-   379      1995                                                                        0.9987 0.9718
+--     380-   407      1109                                                                        0.9991 0.9762
+--     408-   436       139                                                                        0.9992 0.9784
+--     437-   466         4                                                                        0.9993 0.9788
+--     467-   497       643                                                                        0.9993 0.9788
+--     498-   529       329                                                                        0.9994 0.9807
+--     530-   562       252                                                                        0.9994 0.9816
+--     563-   596        11                                                                        0.9995 0.9823
+--     597-   631         0                                                                        0.0000 0.0000
+--     632-   667         2                                                                        0.9995 0.9824
+--     668-   704       350                                                                        0.9995 0.9824
+--     705-   742       929                                                                        0.9995 0.9839
+--     743-   781        22                                                                        0.9997 0.9876
+--     782-   821        16                                                                        0.9997 0.9877
+--
+--           0 (max occurrences)
+--   174526914 (total mers, non-unique)
+--     6159188 (distinct mers, non-unique)
+--           0 (unique mers)
+-- Finished stage 'meryl-process', reset canuIteration.
+--
+-- Removing meryl database 'unitigging/0-mercounts/canu.ms16'.
+--
+-- OVERLAPPER (mhap) (assembly)
+--
+-- Set utgMhapSensitivity=normal based on read coverage of 38.88.
+--
+-- PARAMETERS: hashes=128, minMatches=5, threshold=0.955
+--
+-- Given 5.4 GB, can fit 16200 reads per block.
+-- For 4 blocks, set stride to 2 blocks.
+-- Logging partitioning to 'unitigging/1-overlapper/partitioning.log'.
+-- Configured 3 mhap precompute jobs.
+-- Configured 3 mhap overlap jobs.
+-- Finished stage 'utg-mhapConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'utgmhap' concurrent execution on Thu Apr 27 10:18:48 2023 with 7421.769 GB free disk space (3 processes; 1 concurrently)
+
+    cd unitigging/1-overlapper
+    ./precompute.sh 1 > ./precompute.000001.out 2>&1
+    ./precompute.sh 2 > ./precompute.000002.out 2>&1
+    ./precompute.sh 3 > ./precompute.000003.out 2>&1
+
+-- Finished on Thu Apr 27 10:24:32 2023 (344 seconds) with 7421.539 GB free disk space
+----------------------------------------
+-- All 3 mhap precompute jobs finished successfully.
+-- Finished stage 'utg-mhapPrecomputeCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'utgmhap' concurrent execution on Thu Apr 27 10:24:32 2023 with 7421.539 GB free disk space (3 processes; 1 concurrently)
+
+    cd unitigging/1-overlapper
+    ./mhap.sh 1 > ./mhap.000001.out 2>&1
+    ./mhap.sh 2 > ./mhap.000002.out 2>&1
+    ./mhap.sh 3 > ./mhap.000003.out 2>&1
+
+-- Finished on Thu Apr 27 10:53:44 2023 (1752 seconds) with 7421.496 GB free disk space
+----------------------------------------
+-- Found 3 mhap overlap output files.
+-- Finished stage 'utg-mhapCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:53:44 2023 with 7421.496 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreConfig \
+     -S ../canu.seqStore \
+     -M 3 \
+     -L ./1-overlapper/ovljob.files \
+     -create ./canu.ovlStore.config \
+     > ./canu.ovlStore.config.txt \
+    2> ./canu.ovlStore.config.err
+
+-- Finished on Thu Apr 27 10:53:44 2023 (furiously fast) with 7421.496 GB free disk space
+----------------------------------------
+--
+-- Creating overlap store unitigging/canu.ovlStore using:
+--      2 buckets
+--      2 slices
+--        using at most 1 GB memory each
+-- Finished stage 'utg-overlapStoreConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovB' concurrent execution on Thu Apr 27 10:53:46 2023 with 7421.496 GB free disk space (2 processes; 4 concurrently)
+
+    cd unitigging/canu.ovlStore.BUILDING
+    ./scripts/1-bucketize.sh 1 > ./logs/1-bucketize.000001.out 2>&1
+    ./scripts/1-bucketize.sh 2 > ./logs/1-bucketize.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:53:47 2023 (one second) with 7421.482 GB free disk space
+----------------------------------------
+-- Overlap store bucketizer finished.
+-- Finished stage 'utg-overlapStoreBucketizerCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovS' concurrent execution on Thu Apr 27 10:53:47 2023 with 7421.482 GB free disk space (2 processes; 4 concurrently)
+
+    cd unitigging/canu.ovlStore.BUILDING
+    ./scripts/2-sort.sh 1 > ./logs/2-sort.000001.out 2>&1
+    ./scripts/2-sort.sh 2 > ./logs/2-sort.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:53:48 2023 (one second) with 7421.472 GB free disk space
+----------------------------------------
+-- Overlap store sorter finished.
+-- Finished stage 'utg-overlapStoreSorterCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:53:49 2023 with 7421.472 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreIndexer \
+      -O  ./canu.ovlStore.BUILDING \
+      -S ../canu.seqStore \
+      -C  ./canu.ovlStore.config \
+      -delete \
+    > ./canu.ovlStore.BUILDING.index.err 2>&1
+
+-- Finished on Thu Apr 27 10:53:49 2023 (in the blink of an eye) with 7421.473 GB free disk space
+----------------------------------------
+-- Overlap store indexer finished.
+-- Checking store.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:53:49 2023 with 7421.473 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreDump \
+     -S ../canu.seqStore \
+     -O  ./canu.ovlStore \
+     -counts \
+     > ./canu.ovlStore/counts.dat 2> ./canu.ovlStore/counts.err
+
+-- Finished on Thu Apr 27 10:53:50 2023 (one second) with 7421.473 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/canu.ovlStore' successfully constructed.
+-- Found 1027654 overlaps for 14406 reads; 31926 reads have no overlaps.
+--
+--
+-- Purged 0.25 GB in 9 overlap output files.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:53:50 2023 with 7421.724 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/ovStoreStats \
+     -C 38.88 \
+     -S ../canu.seqStore \
+     -O  ./canu.ovlStore \
+     -o  ./canu.ovlStore \
+     > ./canu.ovlStore.summary.err 2>&1
+
+-- Finished on Thu Apr 27 10:53:51 2023 (one second) with 7421.724 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/canu.ovlStore' contains:
+--
+--   category            reads     %          read length        feature size or coverage  analysis
+--   ----------------  -------  -------  ----------------------  ------------------------  --------------------
+--   middle-missing         15    0.10    11283.07 +- 3700.49       1581.53 +- 1907.19    (bad trimming)
+--   middle-hump            26    0.18     7840.77 +- 3345.41        635.15 +- 1267.29    (bad trimming)
+--   no-5-prime            217    1.50     8350.83 +- 3559.41        494.01 +- 1046.68    (bad trimming)
+--   no-3-prime             71    0.49     9049.85 +- 3726.19        661.35 +- 1125.73    (bad trimming)
+--   
+--   low-coverage          640    4.44     7647.88 +- 3523.64          3.90 +- 1.92       (easy to assemble, potential for lower quality consensus)
+--   unique              11705   81.16    12433.30 +- 2000.36         38.08 +- 9.72       (easy to assemble, perfect, yay)
+--   repeat-cont             3    0.02     9074.33 +- 3183.06         73.82 +- 6.88       (potential for consensus errors, no impact on assembly)
+--   repeat-dove             0    0.00        0.00 +- 0.00             0.00 +- 0.00       (hard to assemble, likely won't assemble correctly or even at all)
+--   
+--   span-repeat          1171    8.12    12622.81 +- 2036.33       5231.06 +- 3639.13    (read spans a large repeat, usually easy to assemble)
+--   uniq-repeat-cont      473    3.28    11881.33 +- 1546.67                             (should be uniquely placed, low potential for consensus errors, no impact on assembly)
+--   uniq-repeat-dove       76    0.53    15035.47 +- 3001.78                             (will end contigs, potential to misassemble)
+--   uniq-anchor             9    0.06    12168.33 +- 1004.18       3303.22 +- 3275.27    (repeat read, with unique section, probable bad read)
+-- Finished stage 'utg-createOverlapStore', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure RED for 16gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      500000000 bases.
+--                   Expecting evidence of at most 536870912 bases per iteration.
+--
+--           Total                                               Reads                 Olaps Evidence
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1 16384.31         1-28433          8964    108992916 13305.08       631507     7.23  1024.00
+--      2 11360.35     28434-46332          5662     67859591  8283.82       396147     4.53  1024.00
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                  176852507               1027654
+-- Finished stage 'readErrorDetectionConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'red' concurrent execution on Thu Apr 27 10:53:52 2023 with 7421.724 GB free disk space (2 processes; 1 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./red.sh 1 > ./red.000001.out 2>&1
+    ./red.sh 2 > ./red.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:54:34 2023 (42 seconds) with 7421.723 GB free disk space
+----------------------------------------
+-- Found 2 read error detection output files.
+-- Finished stage 'readErrorDetectionCheck', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure OEA for 8gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      300000000 bases.
+--
+--           Total                                               Reads                 Olaps  Adjusts
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1  2577.41         1-46332         14626    176852507   177.11      1027654    31.36   320.94
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                  176852507               1027654
+-- Finished stage 'overlapErrorAdjustmentConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'oea' concurrent execution on Thu Apr 27 10:54:35 2023 with 7421.723 GB free disk space (1 processes; 4 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./oea.sh 1 > ./oea.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:54:49 2023 (14 seconds) with 7421.722 GB free disk space
+----------------------------------------
+-- Found 1 overlap error adjustment output files.
+-- Finished stage 'overlapErrorAdjustmentCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:54:49 2023 with 7421.722 GB free disk space
+
+    cd unitigging/3-overlapErrorAdjustment
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/loadErates \
+      -S ../../canu.seqStore \
+      -O ../canu.ovlStore \
+      -L ./oea.files \
+    > ./oea.apply.err 2>&1
+
+-- Finished on Thu Apr 27 10:54:49 2023 (lickety-split) with 7421.72 GB free disk space
+----------------------------------------
+-- No report available.
+-- Finished stage 'updateOverlapStore', reset canuIteration.
+-- Finished stage 'unitig', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'bat' concurrent execution on Thu Apr 27 10:54:50 2023 with 7421.72 GB free disk space (1 processes; 1 concurrently)
+
+    cd unitigging/4-unitigger
+    ./unitigger.sh 1 > ./unitigger.000001.out 2>&1
+
+-- Finished on Thu Apr 27 10:54:54 2023 (4 seconds) with 7421.717 GB free disk space
+----------------------------------------
+-- Unitigger finished successfully.
+--  
+--  ERROR RATES
+--  -----------
+--                                                   --------threshold------
+--  16895                        fraction error      fraction        percent
+--  samples                              (1e-5)         error          error
+--                   --------------------------      --------       --------
+--  command line (-eg)                           ->   4500.00        4.5000%
+--  command line (-ef)                           ->  -----.--      ---.----%
+--  command line (-eM)                           ->   4500.00        4.5000%
+--  mean + std.dev       0.53 +-  12 *    44.58  ->    535.47        0.5355%
+--  median + mad         0.00 +-  12 *     0.00  ->      0.00        0.0000%
+--  90th percentile                              ->      1.00        0.0010%  (enabled)
+--  
+--  BEST EDGE FILTERING
+--  -------------------
+--  At graph threshold 4.5000%, reads:
+--    available to have edges:         2831
+--    with at least one edge:          2784
+--  
+--  At max threshold 4.5000%, reads:  (not computed)
+--    available to have edges:            0
+--    with at least one edge:             0
+--  
+--  At tight threshold 0.0010%, reads with:
+--    both edges below error threshold:      2772  (80.00% minReadsBest threshold = 2227)
+--    one  edge  above error threshold:         9
+--    both edges above error threshold:         3
+--    at least one edge:                     2784
+--  
+--  At loose threshold 0.5355%, reads with:
+--    both edges below error threshold:      2782  (80.00% minReadsBest threshold = 2227)
+--    one  edge  above error threshold:         2
+--    both edges above error threshold:         0
+--    at least one edge:                     2784
+--  
+--  
+--  INITIAL EDGES
+--  -------- ----------------------------------------
+--     11361 reads are contained
+--     32335 reads have no best edges (singleton)
+--       208 reads have only one best edge (spur) 
+--                208 are mutual best
+--      2428 reads have two best edges 
+--                  4 have one mutual best edge
+--               2424 have two mutual best edges
+--  
+--  
+--  FINAL EDGES
+--  -------- ----------------------------------------
+--     11361 reads are contained
+--     32335 reads have no best edges (singleton)
+--       208 reads have only one best edge (spur) 
+--                208 are mutual best
+--      2428 reads have two best edges 
+--                  4 have one mutual best edge
+--               2424 have two mutual best edges
+--  
+--  
+--  EDGE FILTERING
+--  -------- ------------------------------------------
+--         0 reads are ignored
+--       340 reads have a gap in overlap coverage
+--         0 reads have lopsided best edges
+-- Found, in version 1, after unitig construction:
+--   contigs:      47 sequences, total length 5199141 bp (including 4 repeats of total length 77563 bp).
+--   bubbles:      1 sequences, total length 32572 bp.
+--   unassembled:  656 sequences, total length 4928972 bp.
+--
+-- Contig sizes based on genome size 4.5mbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10     3949922             1     3949922
+--     20     3949922             1     3949922
+--     30     3949922             1     3949922
+--     40     3949922             1     3949922
+--     50     3949922             1     3949922
+--     60     3949922             1     3949922
+--     70     3949922             1     3949922
+--     80     3949922             1     3949922
+--     90      303927             2     4253849
+--    100       27775             7     4512541
+--    110       17198            28     4963047
+--
+-- Finished stage 'unitigCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:54:54 2023 with 7421.717 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/utgcns \
+      -S ../canu.seqStore \
+      -T  ./canu.ctgStore 1 \
+      -partition 0.8 1 0.1 \
+    > ./canu.ctgStore/partitioning.log 2>&1
+
+-- Finished on Thu Apr 27 10:54:56 2023 (2 seconds) with 7421.631 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 2 consensus jobs.
+-- Finished stage 'consensusConfigure', reset canuIteration.
+--
+-- Local: cns        4.250 GB    4 CPUs x   1 job      4.250 GB   4 CPUs  (consensus)
+--
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cns' concurrent execution on Thu Apr 27 10:54:56 2023 with 7421.631 GB free disk space (2 processes; 1 concurrently)
+
+    cd unitigging/5-consensus
+    ./consensus.sh 1 > ./consensus.000001.out 2>&1
+    ./consensus.sh 2 > ./consensus.000002.out 2>&1
+
+-- Finished on Thu Apr 27 10:57:37 2023 (161 seconds) with 7421.612 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '1').
+-- Configured 2 consensus jobs.
+-- All 2 consensus jobs finished successfully.
+-- Finished stage 'consensusCheck', reset canuIteration.
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 2 consensus jobs.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:57:38 2023 with 7421.612 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/tgStoreLoad \
+      -S ../canu.seqStore \
+      -T  ./canu.ctgStore 2 \
+      -L ./5-consensus/ctgcns.files \
+    > ./5-consensus/ctgcns.files.ctgStoreLoad.err 2>&1
+
+-- Finished on Thu Apr 27 10:57:39 2023 (one second) with 7421.592 GB free disk space
+----------------------------------------
+-- Purging consensus output after loading to ctgStore.
+-- Purged 2 .cns outputs.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:57:39 2023 with 7421.612 GB free disk space
+
+    cd unitigging
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/tgStoreDump \
+      -S ../canu.seqStore \
+      -T ./canu.ctgStore 2 \
+      -sizes -s 4500000 \
+    > ./canu.ctgStore/seqDB.v002.sizes.txt
+
+-- Finished on Thu Apr 27 10:57:40 2023 (one second) with 7421.612 GB free disk space
+----------------------------------------
+-- Found, in version 2, after consensus generation:
+--   contigs:      47 sequences, total length 5198106 bp (including 4 repeats of total length 77563 bp).
+--   bubbles:      1 sequences, total length 32572 bp.
+--   unassembled:  656 sequences, total length 4928972 bp.
+--
+-- Contig sizes based on genome size 4.5mbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10     3949917             1     3949917
+--     20     3949917             1     3949917
+--     30     3949917             1     3949917
+--     40     3949917             1     3949917
+--     50     3949917             1     3949917
+--     60     3949917             1     3949917
+--     70     3949917             1     3949917
+--     80     3949917             1     3949917
+--     90      303926             2     4253843
+--    100       27775             7     4512535
+--    110       17198            28     4962790
+--
+-- Finished stage 'consensusLoad', reset canuIteration.
+----------------------------------------
+-- Starting command on Thu Apr 27 10:57:40 2023 with 7421.612 GB free disk space
+
+    cd .
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/tgStoreDump \
+      -S ./canu.seqStore \
+      -T ./unitigging/canu.ctgStore 2 \
+      -o ./canu.contigs \
+      -layout \
+    > ./canu.contigs.layout.err 2>&1
+
+-- Finished on Thu Apr 27 10:57:42 2023 (2 seconds) with 7421.611 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Thu Apr 27 10:57:42 2023 with 7421.611 GB free disk space
+
+    cd .
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/tgStoreDump \
+      -S ./canu.seqStore \
+      -T ./unitigging/canu.ctgStore 2 \
+      -consensus -fasta \
+      -unassembled \
+    > ./canu.unassembled.fasta
+    2> ./canu.unassembled.err
+
+-- Finished on Thu Apr 27 10:57:43 2023 (one second) with 7421.607 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Thu Apr 27 10:57:43 2023 with 7421.607 GB free disk space
+
+    cd .
+    /opt/software/canu/2.2-GCCcore-10.3.0/bin/tgStoreDump \
+      -S ./canu.seqStore \
+      -T ./unitigging/canu.ctgStore 2 \
+      -consensus -fasta \
+      -contigs \
+    > ./canu.contigs.fasta
+    2> ./canu.contigs.err
+
+-- Finished on Thu Apr 27 10:57:44 2023 (one second) with 7421.602 GB free disk space
+----------------------------------------
+-- Finished stage 'generateOutputs', reset canuIteration.
+--
+-- Assembly 'canu' finished in '/glfs/brick01/gv0/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/canu_temp'.
+--
+-- Summary saved in 'canu.report'.
+--
+-- Sequences saved:
+--   Contigs       -> 'canu.contigs.fasta'
+--   Unassembled   -> 'canu.unassembled.fasta'
+--
+-- Read layouts saved:
+--   Contigs       -> 'canu.contigs.layout'.
+--
+-- Bye.
+-- canu 2.2
+--
+-- CITATIONS
+--
+-- For 'standard' assemblies of PacBio or Nanopore reads:
+--   Koren S, Walenz BP, Berlin K, Miller JR, Phillippy AM.
+--   Canu: scalable and accurate long-read assembly via adaptive k-mer weighting and repeat separation.
+--   Genome Res. 2017 May;27(5):722-736.
+--   http://doi.org/10.1101/gr.215087.116
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+-- Corrected read consensus sequences are generated using an algorithm derived from FALCON-sense:
+--   Chin CS, et al.
+--   Phased diploid genome assembly with single-molecule real-time sequencing.
+--   Nat Methods. 2016 Dec;13(12):1050-1054.
+--   http://doi.org/10.1038/nmeth.4035
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '11.0.2' (from '/opt/software/Java/11.0.2/bin/java') without -d64 support.
+-- Detected gnuplot version '5.4 patchlevel 2   ' (from 'gnuplot') and image format 'png'.
+--
+-- Detected 4 CPUs and 24576 gigabytes of memory on the local machine.
+--
+-- WARNING: maxThreads=16 has no effect when only 4 CPUs present.
+--
+-- Detected Slurm with 'sinfo' binary in /usr/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /usr/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /usr/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Job limits:
+--     16 CPUs              (maxThreads option).
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     12.000 GB    4 CPUs x   1 job     12.000 GB   4 CPUs  (k-mer counting)
+-- Local: hap        8.000 GB    4 CPUs x   1 job      8.000 GB   4 CPUs  (read-to-haplotype assignment)
+-- Local: cormhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: obtmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: utgmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x   4 jobs    16.000 GB   4 CPUs  (overlap store bucketizer)
+-- Local: ovs        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap store sorting)
+-- Local: red       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap error adjustment)
+-- Local: bat       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Found PacBio CLR reads in 'canu.seqStore':
+--   Libraries:
+--     PacBio CLR:            1
+--   Reads:
+--     Raw:                   447131935
+--     Corrected:             181505581
+--     Corrected and Trimmed: 174995252
+--
+--
+-- Generating assembly 'canu' in '/glfs/brick01/gv0/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/canu_temp':
+--   genomeSize:
+--     4500000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.2400 ( 24.00%)
+--     obtOvlErrorRate 0.0450 (  4.50%)
+--     utgOvlErrorRate 0.0450 (  4.50%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.2500 ( 25.00%)
+--     obtErrorRate    0.0450 (  4.50%)
+--     utgErrorRate    0.0450 (  4.50%)
+--     cnsErrorRate    0.0750 (  7.50%)
+--
+--   Stages to run:
+--     assemble corrected and trimmed reads.
+--
+--
+-- Correction skipped; not enabled.
+--
+-- Trimming skipped; not enabled.
+--
+-- Unitigging skipped; contigs exist in canu.contigs.fasta.
+--
+-- Bye.
+-- canu 2.2
+--
+-- CITATIONS
+--
+-- For 'standard' assemblies of PacBio or Nanopore reads:
+--   Koren S, Walenz BP, Berlin K, Miller JR, Phillippy AM.
+--   Canu: scalable and accurate long-read assembly via adaptive k-mer weighting and repeat separation.
+--   Genome Res. 2017 May;27(5):722-736.
+--   http://doi.org/10.1101/gr.215087.116
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+-- Corrected read consensus sequences are generated using an algorithm derived from FALCON-sense:
+--   Chin CS, et al.
+--   Phased diploid genome assembly with single-molecule real-time sequencing.
+--   Nat Methods. 2016 Dec;13(12):1050-1054.
+--   http://doi.org/10.1038/nmeth.4035
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '11.0.2' (from '/opt/software/Java/11.0.2/bin/java') without -d64 support.
+-- Detected gnuplot version '5.4 patchlevel 2   ' (from 'gnuplot') and image format 'png'.
+--
+-- Detected 4 CPUs and 24576 gigabytes of memory on the local machine.
+--
+-- WARNING: maxThreads=16 has no effect when only 4 CPUs present.
+--
+-- Detected Slurm with 'sinfo' binary in /usr/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /usr/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /usr/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Job limits:
+--     16 CPUs              (maxThreads option).
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     12.000 GB    4 CPUs x   1 job     12.000 GB   4 CPUs  (k-mer counting)
+-- Local: hap        8.000 GB    4 CPUs x   1 job      8.000 GB   4 CPUs  (read-to-haplotype assignment)
+-- Local: cormhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: obtmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: utgmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x   4 jobs    16.000 GB   4 CPUs  (overlap store bucketizer)
+-- Local: ovs        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap store sorting)
+-- Local: red       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap error adjustment)
+-- Local: bat       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Found PacBio CLR reads in 'canu.seqStore':
+--   Libraries:
+--     PacBio CLR:            1
+--   Reads:
+--     Raw:                   447131935
+--     Corrected:             181505581
+--     Corrected and Trimmed: 174995252
+--
+--
+-- Generating assembly 'canu' in '/glfs/brick01/gv0/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/canu_temp':
+--   genomeSize:
+--     4500000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.2400 ( 24.00%)
+--     obtOvlErrorRate 0.0450 (  4.50%)
+--     utgOvlErrorRate 0.0450 (  4.50%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.2500 ( 25.00%)
+--     obtErrorRate    0.0450 (  4.50%)
+--     utgErrorRate    0.0450 (  4.50%)
+--     cnsErrorRate    0.0750 (  7.50%)
+--
+--   Stages to run:
+--     assemble corrected and trimmed reads.
+--
+--
+-- Correction skipped; not enabled.
+--
+-- Trimming skipped; not enabled.
+--
+-- Unitigging skipped; contigs exist in canu.contigs.fasta.
+--
+-- Bye.
+-- canu 2.2
+--
+-- CITATIONS
+--
+-- For 'standard' assemblies of PacBio or Nanopore reads:
+--   Koren S, Walenz BP, Berlin K, Miller JR, Phillippy AM.
+--   Canu: scalable and accurate long-read assembly via adaptive k-mer weighting and repeat separation.
+--   Genome Res. 2017 May;27(5):722-736.
+--   http://doi.org/10.1101/gr.215087.116
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+-- Corrected read consensus sequences are generated using an algorithm derived from FALCON-sense:
+--   Chin CS, et al.
+--   Phased diploid genome assembly with single-molecule real-time sequencing.
+--   Nat Methods. 2016 Dec;13(12):1050-1054.
+--   http://doi.org/10.1038/nmeth.4035
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '11.0.2' (from '/opt/software/Java/11.0.2/bin/java') without -d64 support.
+-- Detected gnuplot version '5.4 patchlevel 2   ' (from 'gnuplot') and image format 'png'.
+--
+-- Detected 4 CPUs and 24576 gigabytes of memory on the local machine.
+--
+-- WARNING: maxThreads=16 has no effect when only 4 CPUs present.
+--
+-- Detected Slurm with 'sinfo' binary in /usr/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /usr/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /usr/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Job limits:
+--     16 CPUs              (maxThreads option).
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     12.000 GB    4 CPUs x   1 job     12.000 GB   4 CPUs  (k-mer counting)
+-- Local: hap        8.000 GB    4 CPUs x   1 job      8.000 GB   4 CPUs  (read-to-haplotype assignment)
+-- Local: cormhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: obtmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: utgmhap    6.000 GB    4 CPUs x   1 job      6.000 GB   4 CPUs  (overlap detection with mhap)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x   4 jobs    16.000 GB   4 CPUs  (overlap store bucketizer)
+-- Local: ovs        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap store sorting)
+-- Local: red       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x   4 jobs    32.000 GB   4 CPUs  (overlap error adjustment)
+-- Local: bat       16.000 GB    4 CPUs x   1 job     16.000 GB   4 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Found PacBio CLR reads in 'canu.seqStore':
+--   Libraries:
+--     PacBio CLR:            1
+--   Reads:
+--     Raw:                   447131935
+--     Corrected:             181505581
+--     Corrected and Trimmed: 174995252
+--
+--
+-- Generating assembly 'canu' in '/glfs/brick01/gv0/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/canu_temp':
+--   genomeSize:
+--     4500000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.2400 ( 24.00%)
+--     obtOvlErrorRate 0.0450 (  4.50%)
+--     utgOvlErrorRate 0.0450 (  4.50%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.2500 ( 25.00%)
+--     obtErrorRate    0.0450 (  4.50%)
+--     utgErrorRate    0.0450 (  4.50%)
+--     cnsErrorRate    0.0750 (  7.50%)
+--
+--   Stages to run:
+--     assemble corrected and trimmed reads.
+--
+--
+-- Correction skipped; not enabled.
+--
+-- Trimming skipped; not enabled.
+--
+-- Unitigging skipped; contigs exist in canu.contigs.fasta.
+--
+-- Bye.
+Currently Loaded Modulefiles:
+  1) GCCcore/11.2.0
+  2) zlib/.1.2.11-GCCcore-11.2.0
+  3) binutils/.2.37-GCCcore-11.2.0
+  4) GCC/11.2.0
+  5) numactl/2.0.14-GCCcore-11.2.0
+  6) XZ/.5.2.5-GCCcore-11.2.0
+  7) libxml2/.2.9.10-GCCcore-11.2.0
+  8) libpciaccess/0.16-GCCcore-11.2.0
+  9) hwloc/.2.5.0-GCCcore-11.2.0
+ 10) OpenSSL/1.1
+ 11) libevent/2.1.12-GCCcore-11.2.0
+ 12) UCX/1.11.2-GCCcore-11.2.0
+ 13) libfabric/1.13.2-GCCcore-11.2.0
+ 14) PMIx/4.1.0-GCCcore-11.2.0
+ 15) OpenMPI/4.1.1-GCC-11.2.0
+ 16) OpenBLAS/0.3.18-GCC-11.2.0
+ 17) FlexiBLAS/3.0.4-GCC-11.2.0
+ 18) gompi/2021b
+ 19) FFTW/3.3.10-gompi-2021b
+ 20) ScaLAPACK/2.1.0-gompi-2021b-fb
+ 21) foss/2021b
+ 22) bzip2/.1.0.8-GCCcore-11.2.0
+ 23) ncurses/.6.2-GCCcore-11.2.0
+ 24) libreadline/.8.1-GCCcore-11.2.0
+ 25) Tcl/.8.6.11-GCCcore-11.2.0
+ 26) SQLite/.3.36-GCCcore-11.2.0
+ 27) GMP/.6.2.1-GCCcore-11.2.0
+ 28) libffi/3.4.2-GCCcore-11.2.0
+ 29) Python/3.9.6-GCCcore-11.2.0
+ 30) pybind11/2.7.1-GCCcore-11.2.0
+ 31) SciPy-bundle/2021.10-foss-2021b
+ 32) expat/2.4.1-GCCcore-11.2.0
+ 33) libpng/.1.6.37-GCCcore-11.2.0
+ 34) Brotli/1.0.9-GCCcore-11.2.0
+ 35) freetype/.2.11.0-GCCcore-11.2.0
+ 36) util-linux/2.37-GCCcore-11.2.0
+ 37) fontconfig/2.13.94-GCCcore-11.2.0
+ 38) xorg-macros/1.19.3-GCCcore-11.2.0
+ 39) X11/20210802-GCCcore-11.2.0
+ 40) gzip/1.10-GCCcore-11.2.0
+ 41) lz4/1.9.3-GCCcore-11.2.0
+ 42) zstd/1.5.0-GCCcore-11.2.0
+ 43) libdrm/2.4.107-GCCcore-11.2.0
+ 44) libglvnd/1.3.3-GCCcore-11.2.0
+ 45) libunwind/1.5.0-GCCcore-11.2.0
+ 46) LLVM/12.0.1-GCCcore-11.2.0
+ 47) Mesa/21.1.7-GCCcore-11.2.0
+ 48) libGLU/9.0.2-GCCcore-11.2.0
+ 49) pixman/0.40.0-GCCcore-11.2.0
+ 50) gettext/.0.21-GCCcore-11.2.0
+ 51) PCRE/.8.45-GCCcore-11.2.0
+ 52) GLib/2.69.1-GCCcore-11.2.0
+ 53) cairo/.1.16.0-GCCcore-11.2.0
+ 54) PCRE2/10.37-GCCcore-11.2.0
+ 55) NASM/2.15.05-GCCcore-11.2.0
+ 56) libjpeg-turbo/.2.0.6-GCCcore-11.2.0
+ 57) jbigkit/2.1-GCCcore-11.2.0
+ 58) LibTIFF/4.3.0-GCCcore-11.2.0
+ 59) Java/11.0.2(11)
+ 60) Tk/.8.6.11-GCCcore-11.2.0
+ 61) cURL/.7.78.0-GCCcore-11.2.0
+ 62) NLopt/2.7.0-GCCcore-11.2.0
+ 63) libogg/1.3.5-GCCcore-11.2.0
+ 64) FLAC/1.3.3-GCCcore-11.2.0
+ 65) libvorbis/1.3.7-GCCcore-11.2.0
+ 66) libsndfile/1.0.31-GCCcore-11.2.0
+ 67) ICU/69.1-GCCcore-11.2.0
+ 68) Szip/.2.1.1-GCCcore-11.2.0
+ 69) HDF5/1.12.1-gompi-2021b
+ 70) UDUNITS/2.2.28-GCCcore-11.2.0
+ 71) GSL/2.7-GCC-11.2.0
+ 72) Ghostscript/.9.54.0-GCCcore-11.2.0
+ 73) JasPer/2.0.33-GCCcore-11.2.0
+ 74) LittleCMS/2.12-GCCcore-11.2.0
+ 75) ImageMagick/7.1.0-4-GCCcore-11.2.0
+ 76) GLPK/5.0-GCCcore-11.2.0
+ 77) nodejs/14.17.6-GCCcore-11.2.0
+ 78) netCDF/4.8.1-gompi-2021b
+ 79) GEOS/3.9.1-GCC-11.2.0
+ 80) PROJ/8.1.0-GCCcore-11.2.0
+ 81) libgeotiff/1.7.0-GCCcore-11.2.0
+ 82) libtirpc/1.3.2-GCCcore-11.2.0
+ 83) HDF/4.2.15-GCCcore-11.2.0
+ 84) GDAL/.3.3.2-foss-2021b
+ 85) MPFR/4.1.0-GCCcore-11.2.0
+ 86) libgit2/1.1.1-GCCcore-11.2.0
+ 87) R/4.1.2-foss-2021b
+ 88) edlib/1.3.9-GCC-11.2.0
+ 89) miniasm/0.3-20191007-GCCcore-11.2.0
+ 90) minimap2/2.22-GCCcore-11.2.0
+ 91) CapnProto/0.9.1-GCCcore-11.2.0
+ 92) Mash/2.3-GCC-11.2.0
+ 93) MUSCLE/3.8.31-GCCcore-11.2.0
+ 94) Pillow/8.3.2-GCCcore-11.2.0
+ 95) Trycycler/0.5.4-foss-2021b
+/var/spool/slurmd/job245242/slurm_script: line 62: canu_trim.py: command not found
+/var/spool/slurmd/job245242/slurm_script: line 62: canu_trim.py: command not found
+/var/spool/slurmd/job245242/slurm_script: line 62: canu_trim.py: command not found
+/var/spool/slurmd/job245242/slurm_script: line 62: canu_trim.py: command not found
+*** miniasm started running at: 
+Thu Apr 27 10:57:56 EDT 2023
+Currently Loaded Modulefiles:
+  1) GCCcore/11.2.0
+  2) zlib/.1.2.11-GCCcore-11.2.0
+  3) binutils/.2.37-GCCcore-11.2.0
+  4) GCC/11.2.0
+  5) numactl/2.0.14-GCCcore-11.2.0
+  6) XZ/.5.2.5-GCCcore-11.2.0
+  7) libxml2/.2.9.10-GCCcore-11.2.0
+  8) libpciaccess/0.16-GCCcore-11.2.0
+  9) hwloc/.2.5.0-GCCcore-11.2.0
+ 10) OpenSSL/1.1
+ 11) libevent/2.1.12-GCCcore-11.2.0
+ 12) UCX/1.11.2-GCCcore-11.2.0
+ 13) libfabric/1.13.2-GCCcore-11.2.0
+ 14) PMIx/4.1.0-GCCcore-11.2.0
+ 15) OpenMPI/4.1.1-GCC-11.2.0
+ 16) OpenBLAS/0.3.18-GCC-11.2.0
+ 17) FlexiBLAS/3.0.4-GCC-11.2.0
+ 18) gompi/2021b
+ 19) FFTW/3.3.10-gompi-2021b
+ 20) ScaLAPACK/2.1.0-gompi-2021b-fb
+ 21) foss/2021b
+ 22) bzip2/.1.0.8-GCCcore-11.2.0
+ 23) ncurses/.6.2-GCCcore-11.2.0
+ 24) libreadline/.8.1-GCCcore-11.2.0
+ 25) Tcl/.8.6.11-GCCcore-11.2.0
+ 26) SQLite/.3.36-GCCcore-11.2.0
+ 27) GMP/.6.2.1-GCCcore-11.2.0
+ 28) libffi/3.4.2-GCCcore-11.2.0
+ 29) Python/3.9.6-GCCcore-11.2.0
+ 30) pybind11/2.7.1-GCCcore-11.2.0
+ 31) SciPy-bundle/2021.10-foss-2021b
+ 32) expat/2.4.1-GCCcore-11.2.0
+ 33) libpng/.1.6.37-GCCcore-11.2.0
+ 34) Brotli/1.0.9-GCCcore-11.2.0
+ 35) freetype/.2.11.0-GCCcore-11.2.0
+ 36) util-linux/2.37-GCCcore-11.2.0
+ 37) fontconfig/2.13.94-GCCcore-11.2.0
+ 38) xorg-macros/1.19.3-GCCcore-11.2.0
+ 39) X11/20210802-GCCcore-11.2.0
+ 40) gzip/1.10-GCCcore-11.2.0
+ 41) lz4/1.9.3-GCCcore-11.2.0
+ 42) zstd/1.5.0-GCCcore-11.2.0
+ 43) libdrm/2.4.107-GCCcore-11.2.0
+ 44) libglvnd/1.3.3-GCCcore-11.2.0
+ 45) libunwind/1.5.0-GCCcore-11.2.0
+ 46) LLVM/12.0.1-GCCcore-11.2.0
+ 47) Mesa/21.1.7-GCCcore-11.2.0
+ 48) libGLU/9.0.2-GCCcore-11.2.0
+ 49) pixman/0.40.0-GCCcore-11.2.0
+ 50) gettext/.0.21-GCCcore-11.2.0
+ 51) PCRE/.8.45-GCCcore-11.2.0
+ 52) GLib/2.69.1-GCCcore-11.2.0
+ 53) cairo/.1.16.0-GCCcore-11.2.0
+ 54) PCRE2/10.37-GCCcore-11.2.0
+ 55) NASM/2.15.05-GCCcore-11.2.0
+ 56) libjpeg-turbo/.2.0.6-GCCcore-11.2.0
+ 57) jbigkit/2.1-GCCcore-11.2.0
+ 58) LibTIFF/4.3.0-GCCcore-11.2.0
+ 59) Java/11.0.2(11)
+ 60) Tk/.8.6.11-GCCcore-11.2.0
+ 61) cURL/.7.78.0-GCCcore-11.2.0
+ 62) NLopt/2.7.0-GCCcore-11.2.0
+ 63) libogg/1.3.5-GCCcore-11.2.0
+ 64) FLAC/1.3.3-GCCcore-11.2.0
+ 65) libvorbis/1.3.7-GCCcore-11.2.0
+ 66) libsndfile/1.0.31-GCCcore-11.2.0
+ 67) ICU/69.1-GCCcore-11.2.0
+ 68) Szip/.2.1.1-GCCcore-11.2.0
+ 69) HDF5/1.12.1-gompi-2021b
+ 70) UDUNITS/2.2.28-GCCcore-11.2.0
+ 71) GSL/2.7-GCC-11.2.0
+ 72) Ghostscript/.9.54.0-GCCcore-11.2.0
+ 73) JasPer/2.0.33-GCCcore-11.2.0
+ 74) LittleCMS/2.12-GCCcore-11.2.0
+ 75) ImageMagick/7.1.0-4-GCCcore-11.2.0
+ 76) GLPK/5.0-GCCcore-11.2.0
+ 77) nodejs/14.17.6-GCCcore-11.2.0
+ 78) netCDF/4.8.1-gompi-2021b
+ 79) GEOS/3.9.1-GCC-11.2.0
+ 80) PROJ/8.1.0-GCCcore-11.2.0
+ 81) libgeotiff/1.7.0-GCCcore-11.2.0
+ 82) libtirpc/1.3.2-GCCcore-11.2.0
+ 83) HDF/4.2.15-GCCcore-11.2.0
+ 84) GDAL/.3.3.2-foss-2021b
+ 85) MPFR/4.1.0-GCCcore-11.2.0
+ 86) libgit2/1.1.1-GCCcore-11.2.0
+ 87) R/4.1.2-foss-2021b
+ 88) edlib/1.3.9-GCC-11.2.0
+ 89) miniasm/0.3-20191007-GCCcore-11.2.0
+ 90) minimap2/2.22-GCCcore-11.2.0
+ 91) CapnProto/0.9.1-GCCcore-11.2.0
+ 92) Mash/2.3-GCC-11.2.0
+ 93) MUSCLE/3.8.31-GCCcore-11.2.0
+ 94) Pillow/8.3.2-GCCcore-11.2.0
+ 95) Trycycler/0.5.4-foss-2021b
+/var/spool/slurmd/job245242/slurm_script: line 87: miniasm_and_minipolish.sh: command not found
+/var/spool/slurmd/job245242/slurm_script: line 88: any2fasta: command not found
+/var/spool/slurmd/job245242/slurm_script: line 87: miniasm_and_minipolish.sh: command not found
+/var/spool/slurmd/job245242/slurm_script: line 88: any2fasta: command not found
+/var/spool/slurmd/job245242/slurm_script: line 87: miniasm_and_minipolish.sh: command not found
+/var/spool/slurmd/job245242/slurm_script: line 88: any2fasta: command not found
+/var/spool/slurmd/job245242/slurm_script: line 87: miniasm_and_minipolish.sh: command not found
+/var/spool/slurmd/job245242/slurm_script: line 88: any2fasta: command not found
+*** necat started running at: 
+Thu Apr 27 10:57:58 EDT 2023
+Currently Loaded Modulefiles:
+  1) GCCcore/11.2.0
+  2) zlib/.1.2.11-GCCcore-11.2.0
+  3) binutils/.2.37-GCCcore-11.2.0
+  4) GCC/11.2.0
+  5) numactl/2.0.14-GCCcore-11.2.0
+  6) XZ/.5.2.5-GCCcore-11.2.0
+  7) libxml2/.2.9.10-GCCcore-11.2.0
+  8) libpciaccess/0.16-GCCcore-11.2.0
+  9) hwloc/.2.5.0-GCCcore-11.2.0
+ 10) OpenSSL/1.1
+ 11) libevent/2.1.12-GCCcore-11.2.0
+ 12) UCX/1.11.2-GCCcore-11.2.0
+ 13) libfabric/1.13.2-GCCcore-11.2.0
+ 14) PMIx/4.1.0-GCCcore-11.2.0
+ 15) OpenMPI/4.1.1-GCC-11.2.0
+ 16) OpenBLAS/0.3.18-GCC-11.2.0
+ 17) FlexiBLAS/3.0.4-GCC-11.2.0
+ 18) gompi/2021b
+ 19) FFTW/3.3.10-gompi-2021b
+ 20) ScaLAPACK/2.1.0-gompi-2021b-fb
+ 21) foss/2021b
+ 22) bzip2/.1.0.8-GCCcore-11.2.0
+ 23) ncurses/.6.2-GCCcore-11.2.0
+ 24) libreadline/.8.1-GCCcore-11.2.0
+ 25) Tcl/.8.6.11-GCCcore-11.2.0
+ 26) SQLite/.3.36-GCCcore-11.2.0
+ 27) GMP/.6.2.1-GCCcore-11.2.0
+ 28) libffi/3.4.2-GCCcore-11.2.0
+ 29) Python/3.9.6-GCCcore-11.2.0
+ 30) pybind11/2.7.1-GCCcore-11.2.0
+ 31) SciPy-bundle/2021.10-foss-2021b
+ 32) expat/2.4.1-GCCcore-11.2.0
+ 33) libpng/.1.6.37-GCCcore-11.2.0
+ 34) Brotli/1.0.9-GCCcore-11.2.0
+ 35) freetype/.2.11.0-GCCcore-11.2.0
+ 36) util-linux/2.37-GCCcore-11.2.0
+ 37) fontconfig/2.13.94-GCCcore-11.2.0
+ 38) xorg-macros/1.19.3-GCCcore-11.2.0
+ 39) X11/20210802-GCCcore-11.2.0
+ 40) gzip/1.10-GCCcore-11.2.0
+ 41) lz4/1.9.3-GCCcore-11.2.0
+ 42) zstd/1.5.0-GCCcore-11.2.0
+ 43) libdrm/2.4.107-GCCcore-11.2.0
+ 44) libglvnd/1.3.3-GCCcore-11.2.0
+ 45) libunwind/1.5.0-GCCcore-11.2.0
+ 46) LLVM/12.0.1-GCCcore-11.2.0
+ 47) Mesa/21.1.7-GCCcore-11.2.0
+ 48) libGLU/9.0.2-GCCcore-11.2.0
+ 49) pixman/0.40.0-GCCcore-11.2.0
+ 50) gettext/.0.21-GCCcore-11.2.0
+ 51) PCRE/.8.45-GCCcore-11.2.0
+ 52) GLib/2.69.1-GCCcore-11.2.0
+ 53) cairo/.1.16.0-GCCcore-11.2.0
+ 54) PCRE2/10.37-GCCcore-11.2.0
+ 55) NASM/2.15.05-GCCcore-11.2.0
+ 56) libjpeg-turbo/.2.0.6-GCCcore-11.2.0
+ 57) jbigkit/2.1-GCCcore-11.2.0
+ 58) LibTIFF/4.3.0-GCCcore-11.2.0
+ 59) Java/11.0.2(11)
+ 60) Tk/.8.6.11-GCCcore-11.2.0
+ 61) cURL/.7.78.0-GCCcore-11.2.0
+ 62) NLopt/2.7.0-GCCcore-11.2.0
+ 63) libogg/1.3.5-GCCcore-11.2.0
+ 64) FLAC/1.3.3-GCCcore-11.2.0
+ 65) libvorbis/1.3.7-GCCcore-11.2.0
+ 66) libsndfile/1.0.31-GCCcore-11.2.0
+ 67) ICU/69.1-GCCcore-11.2.0
+ 68) Szip/.2.1.1-GCCcore-11.2.0
+ 69) HDF5/1.12.1-gompi-2021b
+ 70) UDUNITS/2.2.28-GCCcore-11.2.0
+ 71) GSL/2.7-GCC-11.2.0
+ 72) Ghostscript/.9.54.0-GCCcore-11.2.0
+ 73) JasPer/2.0.33-GCCcore-11.2.0
+ 74) LittleCMS/2.12-GCCcore-11.2.0
+ 75) ImageMagick/7.1.0-4-GCCcore-11.2.0
+ 76) GLPK/5.0-GCCcore-11.2.0
+ 77) nodejs/14.17.6-GCCcore-11.2.0
+ 78) netCDF/4.8.1-gompi-2021b
+ 79) GEOS/3.9.1-GCC-11.2.0
+ 80) PROJ/8.1.0-GCCcore-11.2.0
+ 81) libgeotiff/1.7.0-GCCcore-11.2.0
+ 82) libtirpc/1.3.2-GCCcore-11.2.0
+ 83) HDF/4.2.15-GCCcore-11.2.0
+ 84) GDAL/.3.3.2-foss-2021b
+ 85) MPFR/4.1.0-GCCcore-11.2.0
+ 86) libgit2/1.1.1-GCCcore-11.2.0
+ 87) R/4.1.2-foss-2021b
+ 88) edlib/1.3.9-GCC-11.2.0
+ 89) miniasm/0.3-20191007-GCCcore-11.2.0
+ 90) minimap2/2.22-GCCcore-11.2.0
+ 91) CapnProto/0.9.1-GCCcore-11.2.0
+ 92) Mash/2.3-GCC-11.2.0
+ 93) MUSCLE/3.8.31-GCCcore-11.2.0
+ 94) Pillow/8.3.2-GCCcore-11.2.0
+ 95) Trycycler/0.5.4-foss-2021b
+ 96) NECAT/0.0.1-GCC-11.2.0
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+cp: cannot stat ‘necat/6-bridge_contigs/polished_contigs.fasta’: No such file or directory
+rm: cannot remove ‘necat’: No such file or directory
+rm: cannot remove ‘config.txt’: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+cp: cannot stat ‘necat/6-bridge_contigs/polished_contigs.fasta’: No such file or directory
+rm: cannot remove ‘necat’: No such file or directory
+rm: cannot remove ‘config.txt’: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+cp: cannot stat ‘necat/6-bridge_contigs/polished_contigs.fasta’: No such file or directory
+rm: cannot remove ‘necat’: No such file or directory
+rm: cannot remove ‘config.txt’: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+sed: can't read config.txt: No such file or directory
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 51, near "$cfg{"
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 52.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 55.
+Global symbol "%env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 56.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 57, near "}"
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84, near "$env{"
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 84.
+Global symbol "@jobs" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 89.
+Global symbol "$prjDir" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 95.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 101.
+Global symbol "$env" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 115.
+Global symbol "$cfg" requires explicit package name at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121.
+syntax error at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm line 121, near "$cfg{"
+/opt/software/NECAT/0.0.1-GCC-11.2.0/bin/Plgd/Project.pm has too many errors.
+Compilation failed in require at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+BEGIN failed--compilation aborted at /opt/software/NECAT/0.0.1-GCC-11.2.0/bin/necat.pl line 13.
+cp: cannot stat ‘necat/6-bridge_contigs/polished_contigs.fasta’: No such file or directory
+rm: cannot remove ‘necat’: No such file or directory
+rm: cannot remove ‘config.txt’: No such file or directory
+*** nextdenovo started running at: 
+Thu Apr 27 10:58:00 EDT 2023
+Currently Loaded Modulefiles:
+  1) GCCcore/11.2.0
+  2) zlib/.1.2.11-GCCcore-11.2.0
+  3) binutils/.2.37-GCCcore-11.2.0
+  4) GCC/11.2.0
+  5) numactl/2.0.14-GCCcore-11.2.0
+  6) XZ/.5.2.5-GCCcore-11.2.0
+  7) libxml2/.2.9.10-GCCcore-11.2.0
+  8) libpciaccess/0.16-GCCcore-11.2.0
+  9) hwloc/.2.5.0-GCCcore-11.2.0
+ 10) OpenSSL/1.1
+ 11) libevent/2.1.12-GCCcore-11.2.0
+ 12) UCX/1.11.2-GCCcore-11.2.0
+ 13) libfabric/1.13.2-GCCcore-11.2.0
+ 14) PMIx/4.1.0-GCCcore-11.2.0
+ 15) OpenMPI/4.1.1-GCC-11.2.0
+ 16) OpenBLAS/0.3.18-GCC-11.2.0
+ 17) FlexiBLAS/3.0.4-GCC-11.2.0
+ 18) gompi/2021b
+ 19) FFTW/3.3.10-gompi-2021b
+ 20) ScaLAPACK/2.1.0-gompi-2021b-fb
+ 21) foss/2021b
+ 22) bzip2/.1.0.8-GCCcore-11.2.0
+ 23) ncurses/.6.2-GCCcore-11.2.0
+ 24) libreadline/.8.1-GCCcore-11.2.0
+ 25) Tcl/.8.6.11-GCCcore-11.2.0
+ 26) SQLite/.3.36-GCCcore-11.2.0
+ 27) GMP/.6.2.1-GCCcore-11.2.0
+ 28) libffi/3.4.2-GCCcore-11.2.0
+ 29) Python/3.9.6-GCCcore-11.2.0
+ 30) pybind11/2.7.1-GCCcore-11.2.0
+ 31) SciPy-bundle/2021.10-foss-2021b
+ 32) expat/2.4.1-GCCcore-11.2.0
+ 33) libpng/.1.6.37-GCCcore-11.2.0
+ 34) Brotli/1.0.9-GCCcore-11.2.0
+ 35) freetype/.2.11.0-GCCcore-11.2.0
+ 36) util-linux/2.37-GCCcore-11.2.0
+ 37) fontconfig/2.13.94-GCCcore-11.2.0
+ 38) xorg-macros/1.19.3-GCCcore-11.2.0
+ 39) X11/20210802-GCCcore-11.2.0
+ 40) gzip/1.10-GCCcore-11.2.0
+ 41) lz4/1.9.3-GCCcore-11.2.0
+ 42) zstd/1.5.0-GCCcore-11.2.0
+ 43) libdrm/2.4.107-GCCcore-11.2.0
+ 44) libglvnd/1.3.3-GCCcore-11.2.0
+ 45) libunwind/1.5.0-GCCcore-11.2.0
+ 46) LLVM/12.0.1-GCCcore-11.2.0
+ 47) Mesa/21.1.7-GCCcore-11.2.0
+ 48) libGLU/9.0.2-GCCcore-11.2.0
+ 49) pixman/0.40.0-GCCcore-11.2.0
+ 50) gettext/.0.21-GCCcore-11.2.0
+ 51) PCRE/.8.45-GCCcore-11.2.0
+ 52) GLib/2.69.1-GCCcore-11.2.0
+ 53) cairo/.1.16.0-GCCcore-11.2.0
+ 54) PCRE2/10.37-GCCcore-11.2.0
+ 55) NASM/2.15.05-GCCcore-11.2.0
+ 56) libjpeg-turbo/.2.0.6-GCCcore-11.2.0
+ 57) jbigkit/2.1-GCCcore-11.2.0
+ 58) LibTIFF/4.3.0-GCCcore-11.2.0
+ 59) Java/11.0.2(11)
+ 60) Tk/.8.6.11-GCCcore-11.2.0
+ 61) cURL/.7.78.0-GCCcore-11.2.0
+ 62) NLopt/2.7.0-GCCcore-11.2.0
+ 63) libogg/1.3.5-GCCcore-11.2.0
+ 64) FLAC/1.3.3-GCCcore-11.2.0
+ 65) libvorbis/1.3.7-GCCcore-11.2.0
+ 66) libsndfile/1.0.31-GCCcore-11.2.0
+ 67) ICU/69.1-GCCcore-11.2.0
+ 68) Szip/.2.1.1-GCCcore-11.2.0
+ 69) HDF5/1.12.1-gompi-2021b
+ 70) UDUNITS/2.2.28-GCCcore-11.2.0
+ 71) GSL/2.7-GCC-11.2.0
+ 72) Ghostscript/.9.54.0-GCCcore-11.2.0
+ 73) JasPer/2.0.33-GCCcore-11.2.0
+ 74) LittleCMS/2.12-GCCcore-11.2.0
+ 75) ImageMagick/7.1.0-4-GCCcore-11.2.0
+ 76) GLPK/5.0-GCCcore-11.2.0
+ 77) nodejs/14.17.6-GCCcore-11.2.0
+ 78) netCDF/4.8.1-gompi-2021b
+ 79) GEOS/3.9.1-GCC-11.2.0
+ 80) PROJ/8.1.0-GCCcore-11.2.0
+ 81) libgeotiff/1.7.0-GCCcore-11.2.0
+ 82) libtirpc/1.3.2-GCCcore-11.2.0
+ 83) HDF/4.2.15-GCCcore-11.2.0
+ 84) GDAL/.3.3.2-foss-2021b
+ 85) MPFR/4.1.0-GCCcore-11.2.0
+ 86) libgit2/1.1.1-GCCcore-11.2.0
+ 87) R/4.1.2-foss-2021b
+ 88) edlib/1.3.9-GCC-11.2.0
+ 89) miniasm/0.3-20191007-GCCcore-11.2.0
+ 90) minimap2/2.22-GCCcore-11.2.0
+ 91) CapnProto/0.9.1-GCCcore-11.2.0
+ 92) Mash/2.3-GCC-11.2.0
+ 93) MUSCLE/3.8.31-GCCcore-11.2.0
+ 94) Pillow/8.3.2-GCCcore-11.2.0
+ 95) Trycycler/0.5.4-foss-2021b
+ 96) NextDenovo/2.5.2-GCC-11.2.0
+ 97) NextPolish/1.4.1-GCC-11.2.0
+cp: cannot stat ‘/doc/run.cfg’: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 138: /nextDenovo: No such file or directory
+cp: cannot stat ‘01_rundir/03.ctg_graph/nd.asm.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘nextdenovo_run.cfg’: No such file or directory
+cat: /doc/run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 147: /nextPolish: No such file or directory
+cp: cannot stat ‘01_rundir/genome.nextpolish.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘pid*.log.info’: No such file or directory
+rm: cannot remove ‘nextdenovo_temp.fasta’: No such file or directory
+cp: cannot stat ‘/doc/run.cfg’: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 138: /nextDenovo: No such file or directory
+cp: cannot stat ‘01_rundir/03.ctg_graph/nd.asm.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘nextdenovo_run.cfg’: No such file or directory
+cat: /doc/run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 147: /nextPolish: No such file or directory
+cp: cannot stat ‘01_rundir/genome.nextpolish.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘pid*.log.info’: No such file or directory
+rm: cannot remove ‘nextdenovo_temp.fasta’: No such file or directory
+cp: cannot stat ‘/doc/run.cfg’: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 138: /nextDenovo: No such file or directory
+cp: cannot stat ‘01_rundir/03.ctg_graph/nd.asm.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘nextdenovo_run.cfg’: No such file or directory
+cat: /doc/run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 147: /nextPolish: No such file or directory
+cp: cannot stat ‘01_rundir/genome.nextpolish.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘pid*.log.info’: No such file or directory
+rm: cannot remove ‘nextdenovo_temp.fasta’: No such file or directory
+cp: cannot stat ‘/doc/run.cfg’: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+sed: can't read nextdenovo_run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 138: /nextDenovo: No such file or directory
+cp: cannot stat ‘01_rundir/03.ctg_graph/nd.asm.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘nextdenovo_run.cfg’: No such file or directory
+cat: /doc/run.cfg: No such file or directory
+/var/spool/slurmd/job245242/slurm_script: line 147: /nextPolish: No such file or directory
+cp: cannot stat ‘01_rundir/genome.nextpolish.fasta’: No such file or directory
+rm: cannot remove ‘01_rundir’: No such file or directory
+rm: cannot remove ‘pid*.log.info’: No such file or directory
+rm: cannot remove ‘nextdenovo_temp.fasta’: No such file or directory
+script finished at: 
+Thu Apr 27 10:58:05 EDT 2023
