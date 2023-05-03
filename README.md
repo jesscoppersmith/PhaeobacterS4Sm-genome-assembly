@@ -1,74 +1,86 @@
-# PhaeobacterS4Sm-genome-assembly
-Scripts and pipeline for bacterial genome assembly
+# *Phaeobacter inhibens* S4Sm genome assembly
 
-## About the data
+Scripts and pipeline for consensus bacterial genome assembly using Trycycler
+
+Current *P. inhibens* genomes: https://www.ncbi.nlm.nih.gov/genome/13044  
+Our strain S4Sm: https://www.ncbi.nlm.nih.gov/genome/13044?genome_assembly_id=264708  
+Expected size: 4.40 Mbp  
+
+
+----------------------------------------------------------------------  
+
+
+# About the data
+
 ### Sample Collection and Strains
+
 ### DNA Extraction
+
 ### Sequencing
 
-## Contents
+
+----------------------------------------------------------------------  
+
+
+# Contents
 
 ### Scripts
 - QC
 - 01_Assembly-[01_trycycler_assembly_simple.sh](Scripts/01_trycycler_assembly_simple.sh)
 
-## pipeline
-Work based on Trycycler assembly pipeline
-https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler
+### Output
 
-### Quality Control
+
+----------------------------------------------------------------------  
+
+
+# Overall pipeline
+Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler
+
+## Quality Control
 Program:
 ```{bash}
 
 ```
-### Subsetting data
+
+### Summary of QCd days
+
+## Subsetting data
 Trycycler used to subset PacBio HiFi reads into 24 read_subsets
 ```bash
-module load Trycycler
-
 trycycler subsample --reads "$reads" --threads "$threads" \
  --out_dir read_subsets --count 24 --genome_size "$genome_size"
 ```
-### assembly
-Three programs used to create 24 Assemblies - Canu, Flye, raven
 
-#### canu
+
+## Initial Assembly
+Three programs used to create 24 Assemblies (8 each) - Canu, Flye, raven.  
+Each assembly named A-X and 1-24.  
+
+### Canu
 
 canu_trim.py script from Trycycler used to remove overlaps
 
 ```bash
-module load Trycycler
-module load canu
-
-for i in 01 04 07 10 13 16 19 22; do
-    canu -p canu -d canu_temp -fast genomeSize="$genome_size" useGrid=false maxThreads="$threads" -pacbio read_subsets/sample_"$i".fastq
-    /home/jcoppersmith/data/src/s4_longread_assembly_20221013/canu_trim.py canu_temp/canu.contigs.fasta > assemblies/assembly_"$i".fasta
-    rm -rf canu_temp
-done
+canu -p canu -d canu_temp -fast genomeSize="$genome_size" useGrid=false maxThreads="$threads" -pacbio read_subsets/sample_"$i".fastq
+/home/jcoppersmith/data/src/s4_longread_assembly_20221013/canu_trim.py canu_temp/canu.contigs.fasta > assemblies/assembly_"$i".fasta
+rm -rf canu_temp
 ```
 
-#### flye
+### Flye
 ```bash
-
-module load Flye
-
-for i in 02 05 08 11 14 17 20 23; do
-    flye --pacbio-hifi read_subsets/sample_"$i".fastq --threads "$threads" --out-dir flye_temp
-    cp flye_temp/assembly.fasta assemblies/assembly_"$i".fasta
-    cp flye_temp/assembly_graph.gfa assemblies/assembly_"$i".gfa
-    rm -r flye_temp
-done
+flye --pacbio-hifi read_subsets/sample_"$i".fastq --threads "$threads" --out-dir flye_temp
+cp flye_temp/assembly.fasta assemblies/assembly_"$i".fasta
+cp flye_temp/assembly_graph.gfa assemblies/assembly_"$i".gfa
+rm -r flye_temp
 ```
-#### raven
+
+### Raven
 ```bash
-module load raven
-
-for i in 03 06 09 12 15 18 21 24; do
-    raven --threads "$threads" --disable-checkpoints --graphical-fragment-assembly assemblies/assembly_"$i".gfa read_subsets/sample_"$i".fastq > assemblies/assembly_"$i".fasta
-done
+raven --threads "$threads" --disable-checkpoints --graphical-fragment-assembly assemblies/assembly_"$i".gfa read_subsets/sample_"$i".fastq > assemblies/assembly_"$i".fasta
 ```
 
-#### Results
+### Assembly Results
 | Assembler | assembly name | file name                    | total length(bp) | number of contigs |
 |-----------|---------------|------------------------------|------------------|-------------------|
 | Canu      | A:            | assemblies/assembly_01.fasta | 5,184,524        | 48                |
@@ -96,9 +108,11 @@ done
 | Flye      | W:            | assemblies/assembly_23.fasta | 4,404,885        | 5                 |
 | Raven     | X:            | assemblies/assembly_24.fasta | 8,231,199        | 89                |
 
-### clustering
 
-Trycycler used to cluster created contigs. Default setting resulted in more than 600 clusters, and a more stringent coverage cutoff was used.
+## Clustering
+
+Trycycler used to cluster created contigs from the 24 assemblies.  
+Default setting resulted in more than 600 clusters, so a more stringent coverage cutoff was used to reduce clusters.
 
 ```bash
 trycycler cluster --assemblies assemblies/*.fasta --reads "$reads" --threads "$threads" --out_dir trycycler --min_contig_depth 0.8
