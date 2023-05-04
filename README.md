@@ -117,3 +117,9 @@ Default setting resulted in more than 600 clusters, so a more stringent coverage
 ```bash
 trycycler cluster --assemblies assemblies/*.fasta --reads "$reads" --threads "$threads" --out_dir trycycler --min_contig_depth 0.8
 ```
+### Results
+After stringent depth cutoff (0.8) each assembly was left with 4 contigs each (96 total), clustering into 4 distinct clusters. Contigs clustered with those from other assemblers, and did not self sort. No outliers were identified, and all contigs were kept moving forward in the pipeline.
+
+![ClusteringTree](output/clustering/contigs.jpg)
+
+## Reconciling
