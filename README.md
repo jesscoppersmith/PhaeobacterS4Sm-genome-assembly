@@ -120,6 +120,45 @@ trycycler cluster --assemblies assemblies/*.fasta --reads "$reads" --threads "$t
 ### Results
 After stringent depth cutoff (0.8) each assembly was left with 4 contigs each (96 total), clustering into 4 distinct clusters. Contigs clustered with those from other assemblers, and did not self sort. No outliers were identified, and all contigs were kept moving forward in the pipeline.
 
+Tree visualized using Dendroscope on local machine
 ![ClusteringTree](output/clustering/contigs.jpg)
 
 ## Reconciling
+Clusters aligned against each other and circularized
+
+```bash
+trycycler reconcile --reads "$reads" --cluster_dir trycycler/cluster_001 --threads "$threads" --max_add_seq 2000
+trycycler reconcile --reads "$reads" --cluster_dir trycycler/cluster_002 --threads "$threads" --max_add_seq 2000
+trycycler reconcile --reads "$reads" --cluster_dir trycycler/cluster_003 --threads "$threads" --max_add_seq 2000
+trycycler reconcile --reads "$reads" --cluster_dir trycycler/cluster_004 --threads "$threads" --max_add_seq 2000
+```
+### Results
+Clusters 002, 003, and 004 reconciled successfully.
+
+Received this error for cluster_001
+
+"Error: some pairwise worst-1kbp identities are below the minimum allowed value
+of 25.0%. Please remove offending sequences or lower the --min_1kbp_identity
+threshold and try again."
+
+O_Utg7906 was found to have a low worst-1kbp identity with all other contigs in the cluster. An example of results below
+
+| Comparison                 | Overall-identity | Worst-1kbp-identity |
+|----------------------------|:----------------:|:-------------------:|
+| O_Utg7906 vs P_tig00000001 |      99.98%      |        24.00%       |
+| O_Utg7906 vs Q_contig_1    |       99.975%    |        24.00%       |
+| O_Utg7906 vs R_Utg8118     |         99.975%  |        24.00%       |
+| O_Utg7906 vs S_tig00000001 |      99.98%      |        24.00%       |
+| O_Utg7906 vs T_contig_1    |       99.975%    |        24.00%       |
+| O_Utg7906 vs U_Utg7924     |         99.975%  |        24.00%       |
+| O_Utg7906 vs V_tig00000001 |      99.98%      |        24.00%       |
+| O_Utg7906 vs W_contig_1    |       99.974%    |        24.00%       |
+| O_Utg7906 vs X_Utg8092     |         99.975%  |        24.00%       |
+
+Ran Dotplots for cluster 1
+```bash
+trycycler dotplot --cluster_dir trycycler/cluster_001
+```
+![cluster_001 Dotplots](output/clustering/dotplots.png)
+
+Reran Reconciling script for cluster_001 without O_Utg7906
