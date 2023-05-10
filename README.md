@@ -16,8 +16,11 @@ Expected size: 4.40 Mbp
 
 ### DNA Extraction
 
+DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instructions https://www.zymoresearch.com/products/quick-dna-hmw-magbead-kitfollowing
+
 ### Sequencing
 
+PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Maddison Biotechnology Center
 
 ----------------------------------------------------------------------  
 
@@ -27,6 +30,11 @@ Expected size: 4.40 Mbp
 ### Scripts
 - QC
 - 01_Assembly-[01_trycycler_assembly_simple.sh](Scripts/01_trycycler_assembly_simple.sh)
+- 02_Clustering-[02_trycycler_clustering.sh](Scripts/02_trycycler_clustering.sh)
+- 03_Reconcile-[03_trycycler_reconcile.sh](Scripts/03_trycycler_reconcile.sh)
+- 04_Multiple-Sequence-Alignment-[04_trycycler_msa.sh](Scripts/04_trycycler_msa.sh)
+- 05_Partitioning-[05_trycycler_partition.sh](Scripts/05_trycycler_partition.sh)
+- 06_Consensus-[06_trycycler_consensus.sh](Scripts/06_trycycler_consensus.sh)
 
 ### Output
 
@@ -39,7 +47,7 @@ Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/w
 
 ## Quality Control
 Program:
-```{bash}
+```bash
 
 ```
 
@@ -237,3 +245,22 @@ Concatenated consensus contigs were evaluated with BUSCO
 ```bash
 busco -m genome -i /data/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/trycycler/consensus.fasta -o BUSCO_trycycler-consensus --auto-lineage-prok -f -c 16
 ```
+Results using generic bacteria dataset bacteria_odb10
+
+C:100.0%[S:99.2%,D:0.8%],F:0.0%,M:0.0%,n:124       
+       124     Complete BUSCOs (C)                        
+       123     Complete and single-copy BUSCOs (S)        
+       1       Complete and duplicated BUSCOs (D)         
+       0       Fragmented BUSCOs (F)                      
+       0       Missing BUSCOs (M)                         
+       124     Total BUSCO groups searched       
+
+Results using more specific bacteria dataset rhodobacterales_odb10
+
+C:99.7%[S:99.3%,D:0.4%],F:0.1%,M:0.2%,n:833        
+       830     Complete BUSCOs (C)                        
+       827     Complete and single-copy BUSCOs (S)        
+       3       Complete and duplicated BUSCOs (D)         
+       1       Fragmented BUSCOs (F)                      
+       2       Missing BUSCOs (M)                         
+       833     Total BUSCO groups searched        
