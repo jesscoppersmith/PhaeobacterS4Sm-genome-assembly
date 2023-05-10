@@ -263,4 +263,37 @@ C:99.7%[S:99.3%,D:0.4%],F:0.1%,M:0.2%,n:833
        3       Complete and duplicated BUSCOs (D)         
        1       Fragmented BUSCOs (F)                      
        2       Missing BUSCOs (M)                         
-       833     Total BUSCO groups searched        
+       833     Total BUSCO groups searched   
+
+Ran QUAST on consensus assembly
+
+```bash
+quast -o QUAST-assembly-Results  --glimmer --est-ref-size 4400000 --threads "$threads" /data/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/trycycler/consensus.fasta
+```
+Simplified results
+
+| Assembly                          | consensus  |
+|-----------------------------------|------------|
+| contigs (>= 50000 bp)             | 4          |
+| Total length (>= 50000 bp)        | 4385166    |
+| contigs                           | 4          |
+| Largest contig                    | 3951184    |
+| Total length                      | 4385166    |
+| Estimated reference length        | 4400000    |
+| GC (%)                            | 59.72      |
+| N50                               | 3951184    |
+| NG50                              | 3951184    |
+| N90                               | 3951184    |
+| NG90                              | 291202     |
+| auN                               | 3581816.7  |
+| auNG                              | 3569741.1  |
+| L50                               | 1          |
+| LG50                              | 1          |
+| L90                               | 1          |
+| LG90                              | 2          |
+| N's per 100 kbp                   | 0          |
+| predicted genes (unique)          | 4021       |
+| predicted genes (>= 0 bp)         | 4179+2part |
+| predicted genes (>= 300 bp)       | 3773+2part |
+| predicted genes (>= 1500   bp)    | 511+1part  |
+| predicted genes (>= 3000   bp)    | 49+0part   |
