@@ -161,4 +161,79 @@ trycycler dotplot --cluster_dir trycycler/cluster_001
 ```
 ![cluster_001 Dotplots](output/clustering/dotplots.png)
 
-Reran Reconciling script for cluster_001 without O_Utg7906
+Reran Reconciling script for cluster_001 without O_Utg7906, and had simmilar errors for R_Utg8118.
+
+After removing both failing contigs, reconcile for cluster_001 ran successfully.
+
+## Multiple Sequence Alignment
+
+The reconciled contig sequences are aligned against each other
+
+```bash
+trycycler msa --cluster_dir trycycler/cluster_001 --threads "$threads"
+trycycler msa --cluster_dir trycycler/cluster_002 --threads "$threads"
+trycycler msa --cluster_dir trycycler/cluster_003 --threads "$threads"
+trycycler msa --cluster_dir trycycler/cluster_004 --threads "$threads"
+```
+
+### Results
+cluster_001 MSA length: 3,951,194 bp \
+cluster_002 MSA length: 291,202 bp \
+cluster_003 MSA length: 74,060 bp \
+cluster_004 MSA length: 68,720 bp
+
+## Partitioning
+From the Trycycler git page:
+
+"Now that you have reconciled sequences for each cluster, this step will partition your reads between these clusters. I.e. each read will be assigned to whichever cluster it best aligns and saved into a file for that cluster.
+
+This step is run once for your entire genome (i.e. not on a per-cluster basis)."
+
+```bash
+trycycler partition --reads "$reads" --cluster_dirs trycycler/cluster_* --threads "$threads"
+```
+Defaluts were used for minimum alignment (1000 bases) and minimum read coverage (90)
+
+### Results
+
+trycycler/cluster_001/4_reads.fastq: \
+  574,624 reads (79.54%) \
+  5,564,737,186 bases (79.76%)
+
+trycycler/cluster_002/4_reads.fastq: \
+  60,414 reads (8.36%) \
+  585,545,161 bases (8.39%)
+
+trycycler/cluster_003/4_reads.fastq: \
+  9,354 reads (1.29%) \
+  91,580,147 bases (1.31%)
+
+trycycler/cluster_004/4_reads.fastq: \
+  11,740 reads (1.63%) \
+  114,261,729 bases (1.64%)
+
+
+## Consensus
+
+Creating a consensus contig sequence for the four clusters
+
+```bash
+trycycler consensus --cluster_dir trycycler/cluster_001 --threads "$threads" --verbose
+trycycler consensus --cluster_dir trycycler/cluster_002 --threads "$threads" --verbose
+trycycler consensus --cluster_dir trycycler/cluster_003 --threads "$threads" --verbose
+trycycler consensus --cluster_dir trycycler/cluster_004 --threads "$threads" --verbose
+```
+Defaluts were used for minimum alignment (1000 bases) and minimum read coverage (90)
+
+Combining all consensus contigs from the 4 clusters into one fasta
+
+```bash
+cat trycycler/cluster_*/7_final_consensus.fasta > trycycler/consensus.fasta
+```
+
+### Results
+Concatenated consensus contigs were evaluated with BUSCO
+
+```bash
+busco -m genome -i /data/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/trycycler/consensus.fasta -o BUSCO_trycycler-consensus --auto-lineage-prok -f -c 16
+```
