@@ -18,9 +18,13 @@ Expected size: 4.40 Mbp
 
 DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instructions https://www.zymoresearch.com/products/quick-dna-hmw-magbead-kitfollowing
 
+### Library preparation
+
+[add kit info]
+
 ### Sequencing
 
-PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Maddison Biotechnology Center
+PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Madison Biotechnology Center
 
 ----------------------------------------------------------------------  
 
@@ -38,6 +42,8 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 
 ### Output
 
+### Metadata
+
 
 ----------------------------------------------------------------------  
 
@@ -51,10 +57,10 @@ Program:
 
 ```
 
-### Summary of QCd days
+### Summary of QCd data
 
 ## Subsetting data
-Trycycler used to subset PacBio HiFi reads into 24 read_subsets
+Trycycler used to subset PacBio HiFi reads into 24 read subsets, all in the read_subsets folder
 ```bash
 trycycler subsample --reads "$reads" --threads "$threads" \
  --out_dir read_subsets --count 24 --genome_size "$genome_size"
@@ -120,7 +126,7 @@ raven --threads "$threads" --disable-checkpoints --graphical-fragment-assembly a
 ## Clustering
 
 Trycycler used to cluster created contigs from the 24 assemblies.  
-Default setting resulted in more than 600 clusters, so a more stringent coverage cutoff was used to reduce clusters.
+Default settings resulted in more than 600 clusters, so a more stringent coverage cutoff of 0.8 was used to reduce clusters.
 
 ```bash
 trycycler cluster --assemblies assemblies/*.fasta --reads "$reads" --threads "$threads" --out_dir trycycler --min_contig_depth 0.8
@@ -145,9 +151,9 @@ Clusters 002, 003, and 004 reconciled successfully.
 
 Received this error for cluster_001
 
-"Error: some pairwise worst-1kbp identities are below the minimum allowed value
+`Error: some pairwise worst-1kbp identities are below the minimum allowed value
 of 25.0%. Please remove offending sequences or lower the --min_1kbp_identity
-threshold and try again."
+threshold and try again.`
 
 O_Utg7906 was found to have a low worst-1kbp identity with all other contigs in the cluster. An example of results below
 
@@ -204,6 +210,7 @@ Defaluts were used for minimum alignment (1000 bases) and minimum read coverage 
 
 ### Results
 
+```bash
 trycycler/cluster_001/4_reads.fastq: \
   574,624 reads (79.54%) \
   5,564,737,186 bases (79.76%)
@@ -219,7 +226,7 @@ trycycler/cluster_003/4_reads.fastq: \
 trycycler/cluster_004/4_reads.fastq: \
   11,740 reads (1.63%) \
   114,261,729 bases (1.64%)
-
+```
 
 ## Consensus
 
