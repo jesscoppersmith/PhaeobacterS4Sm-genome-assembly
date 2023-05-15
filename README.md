@@ -14,6 +14,8 @@ Expected size: 4.40 Mbp
 
 ### Sample Collection and Strains
 
+[add info about strain and collection]
+
 ### DNA Extraction
 
 DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instructions https://www.zymoresearch.com/products/quick-dna-hmw-magbead-kitfollowing
@@ -26,12 +28,13 @@ DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instruction
 
 PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Madison Biotechnology Center
 
+
 ----------------------------------------------------------------------  
 
 
 # Contents
 
-### Scripts
+### [Scripts](Scripts/)
 - QC
 - 01_Assembly-[01_trycycler_assembly_simple.sh](Scripts/01_trycycler_assembly_simple.sh)
 - 02_Clustering-[02_trycycler_clustering.sh](Scripts/02_trycycler_clustering.sh)
@@ -40,9 +43,9 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 - 05_Partitioning-[05_trycycler_partition.sh](Scripts/05_trycycler_partition.sh)
 - 06_Consensus-[06_trycycler_consensus.sh](Scripts/06_trycycler_consensus.sh)
 
-### Output
-
-### Metadata
+### [Output](output/)
+- [assembly](output/assembly)
+- [clustering](output/clustering)
 
 
 ----------------------------------------------------------------------  
@@ -51,23 +54,38 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 # Overall pipeline
 Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler
 
-## Quality Control
-Program:
+**Steps:**
+1. Quality Control (????)
+2. Subset data (Trycycler)
+3. Initial assembly (Canu, Flye, Raven)
+5. Clustering (Trycycler)
+6. Reconciling (Trycycler)
+7. Multiple Sequence Alignment (Trycycler)
+8. Partitioning (Trycycler)
+9. Consensus and assembly QC (Trycycler, BUSCO, QUAST)
+10. Annotation....
+
+
+## 1. Quality Control
+
 ```bash
 
 ```
 
 ### Summary of QCd data
 
-## Subsetting data
+[add number of reads, QCd, etc.]
+
+
+## 2. Subsetting data
 Trycycler used to subset PacBio HiFi reads into 24 read subsets, all in the read_subsets folder
 ```bash
 trycycler subsample --reads "$reads" --threads "$threads" \
- --out_dir read_subsets --count 24 --genome_size "$genome_size"
+  --out_dir read_subsets --count 24 \
+  --genome_size "$genome_size"
 ```
 
-
-## Initial Assembly
+## 3. Initial Assembly
 Three programs used to create 24 Assemblies (8 each) - Canu, Flye, raven.  
 Each assembly named A-X and 1-24.  
 
@@ -76,7 +94,9 @@ Each assembly named A-X and 1-24.
 canu_trim.py script from Trycycler used to remove overlaps
 
 ```bash
-canu -p canu -d canu_temp -fast genomeSize="$genome_size" useGrid=false maxThreads="$threads" -pacbio read_subsets/sample_"$i".fastq
+canu -p canu -d canu_temp -fast genomeSize="$genome_size" \
+  useGrid=false maxThreads="$threads" \
+  -pacbio read_subsets/sample_"$i".fastq
 /home/jcoppersmith/data/src/s4_longread_assembly_20221013/canu_trim.py canu_temp/canu.contigs.fasta > assemblies/assembly_"$i".fasta
 rm -rf canu_temp
 ```
@@ -123,7 +143,7 @@ raven --threads "$threads" --disable-checkpoints --graphical-fragment-assembly a
 | Raven     | X:            | assemblies/assembly_24.fasta | 8,231,199        | 89                |
 
 
-## Clustering
+## 4. Clustering
 
 Trycycler used to cluster created contigs from the 24 assemblies.  
 Default settings resulted in more than 600 clusters, so a more stringent coverage cutoff of 0.8 was used to reduce clusters.
@@ -131,13 +151,14 @@ Default settings resulted in more than 600 clusters, so a more stringent coverag
 ```bash
 trycycler cluster --assemblies assemblies/*.fasta --reads "$reads" --threads "$threads" --out_dir trycycler --min_contig_depth 0.8
 ```
+
 ### Results
 After stringent depth cutoff (0.8) each assembly was left with 4 contigs each (96 total), clustering into 4 distinct clusters. Contigs clustered with those from other assemblers, and did not self sort. No outliers were identified, and all contigs were kept moving forward in the pipeline.
 
 Tree visualized using Dendroscope on local machine
 ![ClusteringTree](output/clustering/contigs.jpg)
 
-## Reconciling
+## 5. Reconciling
 Clusters aligned against each other and circularized
 
 ```bash
@@ -149,13 +170,14 @@ trycycler reconcile --reads "$reads" --cluster_dir trycycler/cluster_004 --threa
 ### Results
 Clusters 002, 003, and 004 reconciled successfully.
 
-Received this error for cluster_001
+Received this error for cluster_001:
 
 `Error: some pairwise worst-1kbp identities are below the minimum allowed value
 of 25.0%. Please remove offending sequences or lower the --min_1kbp_identity
 threshold and try again.`
 
-O_Utg7906 was found to have a low worst-1kbp identity with all other contigs in the cluster. An example of results below
+O_Utg7906 was found to have a low worst-1kbp identity with all other contigs in the cluster.  
+An example of results below:  
 
 | Comparison                 | Overall-identity | Worst-1kbp-identity |
 |----------------------------|:----------------:|:-------------------:|
@@ -176,10 +198,10 @@ trycycler dotplot --cluster_dir trycycler/cluster_001
 ![cluster_001 Dotplots](output/clustering/dotplots.png)
 
 Reran Reconciling script for cluster_001 without O_Utg7906, and had simmilar errors for R_Utg8118.
+After removing both failing contigs, reconcile for cluster_001 ran successfully.  
 
-After removing both failing contigs, reconcile for cluster_001 ran successfully.
 
-## Multiple Sequence Alignment
+## 6. Multiple Sequence Alignment
 
 The reconciled contig sequences are aligned against each other
 
@@ -191,21 +213,19 @@ trycycler msa --cluster_dir trycycler/cluster_004 --threads "$threads"
 ```
 
 ### Results
-cluster_001 MSA length: 3,951,194 bp \
-cluster_002 MSA length: 291,202 bp \
-cluster_003 MSA length: 74,060 bp \
+cluster_001 MSA length: 3,951,194 bp
+cluster_002 MSA length: 291,202 bp
+cluster_003 MSA length: 74,060 bp
 cluster_004 MSA length: 68,720 bp
 
-## Partitioning
-From the Trycycler git page:
 
-"Now that you have reconciled sequences for each cluster, this step will partition your reads between these clusters. I.e. each read will be assigned to whichever cluster it best aligns and saved into a file for that cluster.
-
-This step is run once for your entire genome (i.e. not on a per-cluster basis)."
+## 7. Partitioning
+From the Trycycler git page: "Now that you have reconciled sequences for each cluster, this step will partition your reads between these clusters. I.e. each read will be assigned to whichever cluster it best aligns and saved into a file for that cluster. This step is run once for your entire genome (i.e. not on a per-cluster basis)."
 
 ```bash
 trycycler partition --reads "$reads" --cluster_dirs trycycler/cluster_* --threads "$threads"
 ```
+
 Defaluts were used for minimum alignment (1000 bases) and minimum read coverage (90)
 
 ### Results
@@ -228,9 +248,9 @@ trycycler/cluster_004/4_reads.fastq: \
   114,261,729 bases (1.64%)
 ```
 
-## Consensus
+## 8. Consensus and QC
 
-Creating a consensus contig sequence for the four clusters
+Creating a consensus contig sequence for each of the four clusters
 
 ```bash
 trycycler consensus --cluster_dir trycycler/cluster_001 --threads "$threads" --verbose
@@ -238,16 +258,14 @@ trycycler consensus --cluster_dir trycycler/cluster_002 --threads "$threads" --v
 trycycler consensus --cluster_dir trycycler/cluster_003 --threads "$threads" --verbose
 trycycler consensus --cluster_dir trycycler/cluster_004 --threads "$threads" --verbose
 ```
-Defaluts were used for minimum alignment (1000 bases) and minimum read coverage (90)
-
-Combining all consensus contigs from the 4 clusters into one fasta
+Defaults were used for minimum alignment (1000 bases) and minimum read coverage (90).  
+Combining all consensus contigs from the 4 clusters into one fasta:
 
 ```bash
 cat trycycler/cluster_*/7_final_consensus.fasta > trycycler/consensus.fasta
 ```
 
-### Results
-Concatenated consensus contigs were evaluated with BUSCO
+### Assembly QC - BUSCO
 
 ```bash
 busco -m genome -i /data/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/trycycler/consensus.fasta -o BUSCO_trycycler-consensus --auto-lineage-prok -f -c 16
@@ -272,12 +290,11 @@ C:99.7%[S:99.3%,D:0.4%],F:0.1%,M:0.2%,n:833
        2       Missing BUSCOs (M)                         
        833     Total BUSCO groups searched   
 
-Ran QUAST on consensus assembly
+### Assembly QC - QUAST
 
 ```bash
 quast -o QUAST-assembly-Results  --glimmer --est-ref-size 4400000 --threads "$threads" /data/marine_diseases_lab/jessica/src/s4_longread_assembly_20221013/trycycler/consensus.fasta
 ```
-Simplified results
 
 | Assembly                          | consensus  |
 |-----------------------------------|------------|
