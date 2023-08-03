@@ -14,7 +14,7 @@ Expected size: 4.40 Mbp
 
 ### Sample Collection and Strains
 
-[add info about strain and collection]
+S4Sm is a spontaneous streptomycin resistant mutant strain of Phaeobacter inhibens. It was initially isolated from the inner shell of a healthy adult American oyster Crassostrea virginica from Rhode Island USA.
 
 ### DNA Extraction
 
@@ -22,7 +22,7 @@ DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instruction
 
 ### Library preparation
 
-[add kit info]
+Library preparation was carried out by the University of Wisconson-Madison Biotechnology Center
 
 ### Sequencing
 
@@ -55,7 +55,7 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler
 
 **Steps:**
-1. Quality Control (????)
+1. Quality Control (FastQC)
 2. Subset data (Trycycler)
 3. Initial assembly (Canu, Flye, Raven)
 5. Clustering (Trycycler)
@@ -63,18 +63,24 @@ Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/w
 7. Multiple Sequence Alignment (Trycycler)
 8. Partitioning (Trycycler)
 9. Consensus and assembly QC (Trycycler, BUSCO, QUAST)
-10. Annotation....
+10. Annotation by NCBI
 
 
 ## 1. Quality Control
 
 ```bash
-
+fastqc -o FastQC_out/ fastq/m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA.bam.fastq
 ```
 
 ### Summary of QCd data
 
-[add number of reads, QCd, etc.]
+Number of Reads - 93,233 \
+Number of Bases - 900,000,717 \
+Coverage depth - 200
+
+FastQC output [m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc.zip](output/m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc.zip)
+
+
 
 
 ## 2. Subsetting data
