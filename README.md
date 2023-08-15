@@ -1,6 +1,7 @@
 # *Phaeobacter inhibens* S4Sm genome assembly
 
-Scripts and pipeline for consensus bacterial genome assembly using Trycycler
+Scripts and pipeline for consensus bacterial genome assembly using Trycycler with default parameters unless where noted. [Wick, R.R., Judd, L.M., Cerdeira, L.T. et al. Trycycler: consensus long-read assemblies for bacterial genomes. Genome Biol 22, 266 (2021)](https://rdcu.be/djwd0)
+https://github.com/rrwick/Trycycler
 
 Current *P. inhibens* genomes: https://www.ncbi.nlm.nih.gov/genome/13044  
 Our strain S4Sm: https://www.ncbi.nlm.nih.gov/genome/13044?genome_assembly_id=264708  
@@ -22,12 +23,15 @@ DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instruction
 
 ### Library preparation
 
-Library preparation was carried out by the University of Wisconson-Madison Biotechnology Center
+Library preparation was carried out by the University of Wisconson-Madison Biotechnology Center in November 2021.
 
 ### Sequencing
 
-PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Madison Biotechnology Center
+PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wisconson-Madison Biotechnology Center in November 2021.
 
+Reads are stored on the University of Rhode Island Andromeda Compute cluster
+
+/home/jcoppersmith/data/1tb_upload_attempt_20220111/demux
 
 ----------------------------------------------------------------------  
 
@@ -35,7 +39,7 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 # Contents
 
 ### [Scripts](Scripts/)
-- QC
+- QC 01a_fastQc-[01a_fastQc.sh](Scripts/01a_fastQc.sh)
 - 01_Assembly-[01_trycycler_assembly_simple.sh](Scripts/01_trycycler_assembly_simple.sh)
 - 02_Clustering-[02_trycycler_clustering.sh](Scripts/02_trycycler_clustering.sh)
 - 03_Reconcile-[03_trycycler_reconcile.sh](Scripts/03_trycycler_reconcile.sh)
@@ -53,6 +57,21 @@ PacBio HiFi Sequel II SMRT Cell sequencing was performed by the University of Wi
 
 # Overall pipeline
 Work based on Trycycler assembly pipeline: https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler
+
+Trycycler aims to avoid the large errors that can often arrise when creating a long-read bacterial genome assembly through the use of multiple assemblies from subsets of the reads and then creating a consensus. From the Trycycler github...
+
+"Trycycler is a tool that takes as input multiple separate long-read assemblies of the same genome (e.g. from different assemblers or different read subsets) and produces a consensus long-read assembly.
+
+In brief, Trycycler does the following:
+
+Clusters the contig sequences, so the user can distinguish complete contigs (i.e. those that correspond to an entire replicon) from spurious and/or incomplete contigs.
+
+Reconciles the alternative contig sequences with each other and repairs circularisation issues.
+
+Performs a multiple sequence alignment (MSA) of the alternative sequences.
+
+Constructs a consensus sequence from the MSA by choosing between variants where the sequences differ.""
+
 
 **Steps:**
 1. Quality Control (FastQC)
@@ -80,7 +99,7 @@ Coverage depth - 200
 
 FastQC output [m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc.zip](output/m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc.zip)
 
-
+![per-base_quality.png](/output/m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc/Images/per_base_quality.png)
 
 
 ## 2. Subsetting data
@@ -327,3 +346,9 @@ quast -o QUAST-assembly-Results  --glimmer --est-ref-size 4400000 --threads "$th
 | predicted genes (>= 300 bp)       | 3773+2part |
 | predicted genes (>= 1500   bp)    | 511+1part  |
 | predicted genes (>= 3000   bp)    | 49+0part   |
+
+## Annotation
+
+The final assembly, consensus.fasta, was submitted to NCBI for annotation through their Prokaryotic Genome Annotation Pipeline (PGAP) and can be found at the following URL.
+
+https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_030060455.1/
