@@ -48,6 +48,7 @@ Reads are stored on the University of Rhode Island Andromeda Compute cluster
 - 06_Consensus-[06_trycycler_consensus.sh](Scripts/06_trycycler_consensus.sh)
 
 ### [Output](output/)
+- [QC](/output/m64247_211116_212612.demux.bc1003_BAK8A_OA--bc1003_BAK8A_OA_fastqc/Images)
 - [assembly](output/assembly)
 - [clustering](output/clustering)
 
