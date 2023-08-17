@@ -15,7 +15,7 @@ Expected size: 4.40 Mbp
 
 ### Sample Collection and Strains
 
-S4Sm is a spontaneous streptomycin resistant mutant strain of Phaeobacter inhibens. It was initially isolated from the inner shell of a healthy adult American oyster Crassostrea virginica from Rhode Island USA.
+S4Sm is a spontaneous streptomycin resistant mutant strain of Phaeobacter inhibens. It was initially isolated from the inner shell of a healthy adult American oyster Crassostrea virginica from Rhode Island USA. [Karim, Murni, et al. "Probiotic strains for shellfish aquaculture: protection of eastern oyster, Crassostrea virginica, larvae and juveniles againsl bacterial challenge." Journal of Shellfish Research 32.2 (2013): 401-408.](https://doi.org/10.2983/035.032.0220)
 
 ### DNA Extraction
 
@@ -23,7 +23,7 @@ DNA was extracted using Zymo Quick-DNA HMW MagBead Kit following kit instruction
 
 ### Library preparation
 
-Library preparation was carried out by the University of Wisconson-Madison Biotechnology Center in November 2021.
+Library preparation was carried out using the protocol Preparing Multiplexed Microbial Libraries using SMRTbell Express Template Prep Kit 2.0 by the University of Wisconson-Madison Biotechnology Center in November 2021.
 
 ### Sequencing
 
@@ -39,7 +39,7 @@ Reads are stored on the University of Rhode Island Andromeda Compute cluster
 # Contents
 
 ### [Scripts](Scripts/)
-- QC 01a_fastQc-[01a_fastQc.sh](Scripts/01a_fastQc.sh)
+- QC 01a_fastQc-[01a_fastQC.sh](Scripts/01a_fastQC.sh)
 - 01_Assembly-[01_trycycler_assembly_simple.sh](Scripts/01_trycycler_assembly_simple.sh)
 - 02_Clustering-[02_trycycler_clustering.sh](Scripts/02_trycycler_clustering.sh)
 - 03_Reconcile-[03_trycycler_reconcile.sh](Scripts/03_trycycler_reconcile.sh)
